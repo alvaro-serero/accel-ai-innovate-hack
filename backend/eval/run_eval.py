@@ -147,15 +147,19 @@ def freshness_and_ghost() -> tuple[dict, dict]:
              "internships_open": fetch_one("select count(*) as n from jobs where closed_at is null and is_internship")["n"],
              "watching_since": t0.isoformat() if t0 else None}
     if t0:
-        new = fetch_one("""select count(*) as n, count(*) filter (where j.is_internship) as ni
-                           from job_events e join jobs j on j.id = e.job_id
-                           where e.kind = 'opened' and e.at > %s + interval '15 minutes'""", (t0,))
-        lag = fetch_one("""select percentile_cont(0.5) within group (order by extract(epoch from (j.first_seen_at - j.published_at)) / 60) as med
-                           from jobs j where j.published_at is not null and j.first_seen_at > %s + interval '15 minutes'
-                             and j.first_seen_at >= j.published_at""", (t0,))
+        # A posting is "new" only if it appeared after the first poll of ITS company: companies added
+        # later would otherwise count their whole backlog (old postings) as fresh detections.
+        newly_opened = """with first_poll as (select company_id, min(first_seen_at) as t from jobs group by company_id)
+                          select j.* from jobs j join first_poll f on f.company_id = j.company_id
+                          where j.first_seen_at > f.t + interval '15 minutes'"""
+        new = fetch_one(f"select count(*) as n, count(*) filter (where is_internship) as ni from ({newly_opened}) x")
+        lag = fetch_one(f"""select percentile_cont(0.5) within group (order by extract(epoch from (first_seen_at - published_at)) / 60) as med,
+                                   count(*) as n
+                            from ({newly_opened}) x where published_at is not null and first_seen_at >= published_at""")
         changes = fetch_all("""select kind, count(*) as n from job_events where at > %s + interval '15 minutes' group by kind""", (t0,))
         fresh.update({"postings_detected": new["n"], "internships_opened_since_first_poll": new["ni"],
                       "median_lag_hours": round(lag["med"] / 60, 2) if lag and lag["med"] is not None else None,
+                      "lag_sample_size": lag["n"] if lag else 0,
                       "events_since_first_poll": {r["kind"]: r["n"] for r in changes}})
     g = fetch_one("""select count(*) as n, count(*) filter (where ghost_score >= 0.6) as ghosts
                      from jobs where closed_at is null and is_internship""")
