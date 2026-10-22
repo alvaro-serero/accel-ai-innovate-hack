@@ -401,6 +401,7 @@ You own the app shell, the deploy and the whole frontend. The UI is built on moc
    - *Status: done by Alvaro in the skeleton commit; Docker build tested locally by Marc (health and all stub routes OK, with and without the scheduler).*
 2. **12:40 to 13:10, deploy hello-world to Aiven Runtime now, not at 15:00:** Runtime, Deploy application, connect GitHub, repo and branch `main`, Dockerfile at `./Dockerfile`, port 8080 HTTP. Add the Postgres integration so `DATABASE_URL` is injected, and the API keys as secret env vars plus `ENABLE_SCHEDULER=true`. Check `/api/health` on the public URL. Keep one instance only, because the scheduler runs inside the app. Pushing does not redeploy: use Actions, then "Deploy latest commit".
    - Prerequisites: one shared Aiven organisation for the whole team (Leo creates it with the Postgres service and invites Marc as admin). The GitHub connection must be made by the repo owner (Alvaro), since Aiven installs a GitHub app on the account that owns the repo; after that anyone in the Aiven org can deploy. The app can be deployed before the database exists (stubs answer without it). Deadline: deployed by 13:30, before merge 1.
+   - *Status: done. API live at https://01a1638c-60d5-73df-914c-5817003873f2-8080.eur-1.aiven.app (Postgres connected, `ENABLE_SCHEDULER=true`, scheduler on). All routes answer 200 against the real data; CORS `*` OK. The frontend uses this URL by default (`src/lib/api.ts`).*
 3. **13:10 to 14:00, Lovable on mock data** (the mock data is the exact JSON returned by the stub routes, so field names match `schemas.py`; API base URL in `VITE_API_URL`; frontend in its own Lovable-synced repo). Screens, in this order:
    1. Morning brief: stats bar ("412 postings checked, 9 new internships, 3 ghosts skipped"), 5 match cards with fit score, "first seen 2 h ago", ghost badge, reasons with a source chip (posting, CV, web), gaps, company brief with links, buttons thumbs up, thumbs down (asks for a reason), Prepare kit.
    2. Kit drawer: CV bullets, cover letter, LinkedIn note, each with a copy button, and the banner "You send it. FirstIn never sends anything for you."
@@ -409,8 +410,19 @@ You own the app shell, the deploy and the whole frontend. The UI is built on moc
    5. Memory panel: active memory lines, superseded ones struck through (this shows the learning).
    6. Data layer: live feed of opened, edited, closed postings (refresh every 10 s), stat tiles, the latest run trace as steps with count in and out.
    7. Evidence: bars for baseline, agent, agent + memory; event precision; freshness and ghost tiles.
+   - *Status: done. All 7 screens generated in Lovable, reviewed against this plan and the stub API, then fixed for the demo journey (commit `1b4ca38` in the Lovable repo):*
+     - *Thumbs down hides the card, PATCHes the match to `dismissed`, shows "FirstIn learned: ..." and a "Re-rank now" banner that starts a new run (demo step 1:15).*
+     - *New user with no run yet sees a "Run my first scout" empty state instead of a blank brief.*
+     - *Last user id is remembered (localStorage) so Data layer, Evidence and Onboarding link back to the right student.*
+     - *Null-safe dates (missing `generated_at` / `starts_at`) and no "NaN%" on an empty grounding counter.*
+   - *Checked: typecheck, tests and production build pass; all pages load against the local backend; CORS and `PATCH /api/matches/{id}` OK. Visual check in the Lovable preview still to do.*
+   - *Published (public): https://firstin-career.lovable.app, pointing at the Aiven API. Republish after each frontend change (Publish → Publish changes); it is not automatic.*
+   - *`web/` holds a snapshot of the Lovable repo (commit `e1a4d53`) so the team repo contains the whole project. The Lovable repo stays the source of truth: edit there, then re-copy into `web/`.*
+   - *Every API call falls back to mock data when it fails; a "demo data" pill shows in the header. Watch it during the video.*
 4. **Design:** calm and clean, one accent colour, no dashboards-for-the-sake-of-it. The brief should read like a short morning email.
 5. **14:00 to 14:45:** switch from mocks to the real API, fix what breaks after the merge.
+   - Set the Aiven URL as the default `BASE` in `src/lib/api.ts` (Lovable has no simple UI for `VITE_*` env vars; the URL is public anyway).
+   - The backend must exclude matches with status `dismissed` (or jobs with a thumbs down) at the next run, otherwise "Re-rank now" shows the same picks (Alvaro, Stage 0).
 6. **14:45 to 15:15:** record the 3-minute video with Alvaro narrating, following the Demo journey table. Record a backup take of each screen in case the live run is slow.
 
 **Starter Lovable prompt:** *"Build FirstIn, an internship scout for students. Pages: Morning brief, Events, Memory, Data layer, Evidence, Onboarding. Fetch from VITE\_API\_URL with these endpoints and shapes: \[paste API table and Core shapes\]. Use mock data when the API fails. Clean, minimal, one accent colour, cards with source chips. Every draft shows 'You send it.'"*
