@@ -68,8 +68,8 @@ One Python backend, one Postgres, one container on Aiven Runtime. No microservic
 | Page text | httpx + trafilatura | For event pages |
 | CV parsing | pypdf | Text out, then LLM to JSON |
 | Data | Aiven for PostgreSQL (one service) | Job history, memory, matches, events, traces |
-| Frontend | Lovable (React, Vite, Tailwind), hosted on Lovable | Calls the API on Aiven Runtime (CORS on). Lovable GitHub sync keeps the code versioned |
-| Deploy | Aiven Runtime from the GitHub repo, `Dockerfile` at root, port 8080 | `DATABASE_URL` injected by the Postgres integration; push does not redeploy, use "Deploy latest commit" |
+| Frontend | Lovable (React, Vite, Tailwind), hosted on Lovable | Calls the API on Aiven Runtime (CORS on). Lives in its own GitHub repo created by Lovable's GitHub sync (Lovable cannot sync into a subfolder of this repo); API base URL in `VITE_API_URL` |
+| Deploy | Aiven Runtime from the GitHub repo, `Dockerfile` at root, port 8080 | `DATABASE_URL` injected by the Postgres integration; set `ENABLE_SCHEDULER=true`; push does not redeploy, use "Deploy latest commit" |
 
 **Partner tools we use (graded, so each one gets a real job and a mention on the pitch slide):**
 
@@ -102,8 +102,10 @@ firstin/
   backend/agent/     profile.py qualify.py research.py kit.py memory.py run.py routes.py   Alvaro
   backend/events/    search.py extract.py verify.py routes.py               Taleb
   backend/eval/      labels/ baseline.py judge.py run_eval.py results/      Taleb
-  web/  (Lovable project, synced to GitHub)                                  Marc
+  web/  placeholder only: the frontend lives in the Lovable repo (below)      Marc
 ```
+
+**Frontend repo:** Lovable creates and syncs its own GitHub repo (`firstin-web`, link added here once created). Marc adds the team as collaborators. It talks to this backend only through `VITE_API_URL`. If the submission needs a single repo, the Lovable code is copied into `web/` at 15:15.
 
 **Rules:**
 
@@ -396,8 +398,10 @@ You own the app shell, the deploy and the whole frontend. The UI is built on moc
 1. **12:15 to 12:40, shell on `main`:**
    - `backend/app/main.py`: FastAPI app, CORS open (`*` is fine today), `GET /api/health`, includes the four routers, starts an APScheduler `AsyncIOScheduler` on startup and calls `watcher.register_jobs(scheduler)`.
    - `config.py` reads the env vars from `.env.example`. `requirements.txt`. `Dockerfile`: `python:3.11-slim`, install requirements, `CMD uvicorn backend.app.main:app --host 0.0.0.0 --port 8080`.
-2. **12:40 to 13:10, deploy hello-world to Aiven Runtime now, not at 15:00:** Runtime, Deploy application, connect GitHub, repo and branch `main`, Dockerfile at `./Dockerfile`, port 8080 HTTP. Add the Postgres integration so `DATABASE_URL` is injected, and the API keys as secret env vars. Check `/api/health` on the public URL. Keep one instance only, because the scheduler runs inside the app. Pushing does not redeploy: use Actions, then "Deploy latest commit".
-3. **13:10 to 14:00, Lovable on mock data** (paste the Core shapes JSON from the API contract as mock data, API base URL in `VITE_API_URL`). Screens, in this order:
+   - *Status: done by Alvaro in the skeleton commit; Docker build tested locally by Marc (health and all stub routes OK, with and without the scheduler).*
+2. **12:40 to 13:10, deploy hello-world to Aiven Runtime now, not at 15:00:** Runtime, Deploy application, connect GitHub, repo and branch `main`, Dockerfile at `./Dockerfile`, port 8080 HTTP. Add the Postgres integration so `DATABASE_URL` is injected, and the API keys as secret env vars plus `ENABLE_SCHEDULER=true`. Check `/api/health` on the public URL. Keep one instance only, because the scheduler runs inside the app. Pushing does not redeploy: use Actions, then "Deploy latest commit".
+   - Prerequisites: one shared Aiven organisation for the whole team (Leo creates it with the Postgres service and invites Marc as admin). The GitHub connection must be made by the repo owner (Alvaro), since Aiven installs a GitHub app on the account that owns the repo; after that anyone in the Aiven org can deploy. The app can be deployed before the database exists (stubs answer without it). Deadline: deployed by 13:30, before merge 1.
+3. **13:10 to 14:00, Lovable on mock data** (the mock data is the exact JSON returned by the stub routes, so field names match `schemas.py`; API base URL in `VITE_API_URL`; frontend in its own Lovable-synced repo). Screens, in this order:
    1. Morning brief: stats bar ("412 postings checked, 9 new internships, 3 ghosts skipped"), 5 match cards with fit score, "first seen 2 h ago", ghost badge, reasons with a source chip (posting, CV, web), gaps, company brief with links, buttons thumbs up, thumbs down (asks for a reason), Prepare kit.
    2. Kit drawer: CV bullets, cover letter, LinkedIn note, each with a copy button, and the banner "You send it. FirstIn never sends anything for you."
    3. Onboarding: CV upload, city, roles, companies, start date.
@@ -454,7 +458,7 @@ Five deliverables, each with one owner. Every number we show says whether it com
 | --- | --- | --- |
 | Too few Paris internships on Greenhouse, Lever, Ashby | Fewer than 30 open internships at 13:30 | Widen to all of France + remote, add London; in the pitch say "internship-heavy boards next" |
 | ATS field names differ from this plan | Parse errors on first poll | Print one raw response per ATS first, then map |
-| Aiven Runtime deploy fails | No health URL by 13:15 | Ask the Aiven mentors on site immediately; meanwhile keep running locally and demo from localhost |
+| Aiven Runtime deploy fails | No health URL by 13:15 | Ask the Aiven mentors on site immediately; meanwhile keep running locally and expose it through an HTTPS tunnel (cloudflared), since the Lovable app (HTTPS) cannot call `http://localhost` |
 | Lovable cannot reach the API | CORS or mixed-content errors | CORS `*` on FastAPI, HTTPS URL only, mock data fallback stays in the UI |
 | Event pages are JavaScript-only | Empty extracted text | Use the search snippet and page meta tags; keep only events with a date |
 | LLM run too slow for the live demo | Run takes over 60 s | Pre-run at 14:40, demo shows the stored brief; label it "recorded nightly run" |
