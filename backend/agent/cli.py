@@ -2,6 +2,7 @@
 
     python -m backend.agent.cli onboard --cv path.pdf --city Paris --roles "ML engineer intern" --companies "Datadog,Mistral AI"
     python -m backend.agent.cli qualify --user 1     (dry run: ranks and prints, writes nothing)
+    python -m backend.agent.cli research --company "Mistral AI"
     python -m backend.agent.cli run --user 1
 """
 import argparse
@@ -9,7 +10,7 @@ import asyncio
 import json
 from pathlib import Path
 
-from backend.agent import profile, qualify
+from backend.agent import profile, qualify, research
 
 
 def cmd_onboard(args) -> None:
@@ -61,6 +62,18 @@ def cmd_qualify(args) -> None:
     print_picks(picks)
 
 
+def cmd_research(args) -> None:
+    async def go():  # one event loop: the cached async Anthropic client can't move between loops
+        results = await research.search_company(args.company)
+        print(f"{len(results)} Keenable results")
+        for r in results:
+            print(f"  {r['url']}  {r['title'][:80]}")
+        return await research.write_brief(args.company, results)
+
+    brief = asyncio.run(go())
+    print("brief:", brief.model_dump_json(indent=2) if brief else None)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="backend.agent.cli")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -78,6 +91,10 @@ def main() -> None:
     p = sub.add_parser("qualify", help="rank jobs for a user without writing to the DB")
     p.add_argument("--user", type=int, required=True)
     p.set_defaults(func=cmd_qualify)
+
+    p = sub.add_parser("research", help="Keenable search + Haiku brief for one company")
+    p.add_argument("--company", required=True)
+    p.set_defaults(func=cmd_research)
 
     args = parser.parse_args()
     args.func(args)
