@@ -52,6 +52,7 @@
       <label>User id<input id="uid" value="1" type="number"></label>
       <label>City<input id="city" value="Paris"></label>
       <label>Target companies (comma)<input id="companies" value="Mistral AI, Datadog, Amazon"></label>
+      <label style="flex:0 0 auto;display:flex;gap:6px;align-items:center;color:var(--fg)"><input id="people" type="checkbox"> Verify speakers (people tool)</label>
       <button type="button" id="save" class="ghost">Save user (sandbox only)</button>
       <button type="button" id="refresh">Refresh events</button>
     </form>
@@ -82,8 +83,13 @@ const pct = v => v == null ? "n/a" : Math.round(v * 100) + "%";
 
 async function getJSON(p, opts) { const r = await fetch(api(p), opts); if (!r.ok) throw new Error(r.status + " " + await r.text()); return r.json(); }
 
+$("people").onchange = async () => {
+  try { await getJSON(`/dev/people?on=${$("people").checked}`, {method: "PUT"}); loadMode(); }
+  catch (e) { $("hint").innerHTML = `<span class="err">People tool switch only exists on the sandbox: ${esc(e.message)}</span>`; }
+};
+
 async function loadMode() {
-  try { const m = await getJSON("/dev/mode");
+  try { const m = await getJSON("/dev/mode"); $("people").checked = m.people_tool === "on";
     $("mode").innerHTML = Object.entries(m).map(([k, v]) => `<span class="pill ${String(v).includes("SIM") ? "sim" : "ok"}">${k}: ${esc(v)}</span>`).join(" ");
   } catch { $("mode").innerHTML = `<span class="pill ok">real API</span>`; }
 }
@@ -99,7 +105,12 @@ async function loadEvents() {
         <div class="meta">${Object.entries(m.event.involvement || {}).map(([c, v]) => `<span class="pill">${esc(c)}: ${esc(v)}</span>`).join(" ")}</div>
         <div>${esc(m.why)}</div>
         <div style="display:flex;gap:8px;align-items:center"><b>${m.score}</b><div class="bar" style="flex:1"><i style="width:${m.score}%"></i></div></div>
-        ${(m.who_to_meet || []).map(p => `<div class="who"><b>${esc(p.name)}</b> ${p.role ? "· " + esc(p.role) : ""}<br>${esc(p.opener)}</div>`).join("")}
+        ${(m.who_to_meet || []).map(p => {
+          const v = /^(.*) \(verified: (\S+)\)$/.exec(p.role || "");
+          const role = v ? v[1] : p.role;
+          const badge = v ? ` <span class="pill ok">✓ verified</span> <a href="${esc(v[2])}" target="_blank" rel="noopener">profile</a>` : "";
+          return `<div class="who"><b>${esc(p.name)}</b> ${role ? "· " + esc(role) : ""}${badge}<br>${esc(p.opener)}</div>`;
+        }).join("")}
         ${m.event.url ? `<a href="${esc(m.event.url)}" target="_blank" rel="noopener">Open event page</a>` : ""}
       </div>`).join("") : "No verified events.";
   } catch (e) { $("events").innerHTML = `<span class="err">${esc(e.message)}</span>`; }

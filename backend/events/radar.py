@@ -17,6 +17,7 @@ from backend.app.db import execute, fetch_all, fetch_one
 from backend.app.llm import HAIKU, aclaude_json
 from backend.app.schemas import Contact, EventMatch, EventOut, EventsRefreshResult
 from backend.events.extract import extract_event
+from backend.events.people import verify_people
 from backend.events.search import search_events
 from backend.events.verify import norm, parse_date, verify
 
@@ -64,12 +65,8 @@ async def who_to_meet(ev: dict, target_companies: list[str], profile: dict) -> l
         except Exception:
             opener = ""
         out.append({"name": p["name"], "role": p.get("role"), "company": p.get("company"), "opener": opener})
-    if not out:  # no named speaker from a target company: say who to look for instead of inventing a name
-        for c, v in (ev.get("involvement") or {}).items():
-            if norm(c) in targets:
-                out.append({"name": f"The {c} team", "role": f"{v} at this event", "company": c,
-                            "opener": f"Ask which internships {c} opens for 2027, then mention your most relevant project."})
-    return out
+    # as in the plan: only people named on the page; no named speaker means no "who to meet"
+    return await verify_people(out)  # optional, off unless EVENTS_VERIFY_PEOPLE=true
 
 
 def _store_event(ev: dict, verified: bool, notes: str) -> int:

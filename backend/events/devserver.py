@@ -10,6 +10,7 @@ Force simulation with SIM_SEARCH=fake / SIM_LLM=fake. Everything simulated is la
 import json
 import os
 import random
+import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -20,6 +21,7 @@ from pydantic import BaseModel
 
 from backend.app.config import settings
 import backend.events.extract as X
+import backend.events.people as P
 import backend.events.radar as R
 import backend.events.search as S
 
@@ -89,6 +91,13 @@ def _sim_candidates(company: str, city: str) -> list[dict]:
 
 
 async def sim_search(query: str):
+    if "LinkedIn" in query:  # people tool: a public profile result for the speaker, as a search engine would return
+        m = re.match(r'"(.+?)" (.+) LinkedIn', query)
+        name, comp = (m.group(1), m.group(2)) if m else ("", "")
+        slug = name.lower().replace(" ", "-").replace("(", "").replace(")", "")
+        return [{"url": f"https://www.linkedin.com/in/sim-{slug}", "title": f"{name} - ML Engineer - {comp} | LinkedIn",
+                 "snippet": f"SIM profile. {name} works at {comp} in Paris."},
+                {"url": "https://twitter.com/sim", "title": name, "snippet": "unrelated"}]
     comp = next((c for c in DB.users[1]["target_companies"] if query.startswith(c) or f" {c} " in f" {query} "), None)
     if not comp or "meetup" not in query:  # one query per company returns results, like a real noisy search
         return []
@@ -123,6 +132,7 @@ async def sim_llm(system: str, user: str, model=None, max_tokens=1000):
 
 if not REAL_SEARCH:  # simulated URLs have no real page behind them
     S.akeenable_search = sim_search
+    P.akeenable_search = sim_search
     X.fetch_text = sim_fetch
 if not REAL_LLM:
     X.aclaude_json = sim_llm
@@ -146,7 +156,15 @@ class UserPatch(BaseModel):
 
 @app.get("/dev/mode")
 def mode():
-    return {"search": "keenable" if REAL_SEARCH else "SIM", "llm": "claude" if REAL_LLM else "SIM", "db": "in-memory (SIM)"}
+    return {"search": "keenable" if REAL_SEARCH else "SIM", "llm": "claude" if REAL_LLM else "SIM", "db": "in-memory (SIM)",
+            "people_tool": "on" if P.enabled() else "off"}
+
+
+@app.put("/dev/people")
+def toggle_people(on: bool):
+    """Sandbox only: switch the speaker-verification tool for the next refresh."""
+    os.environ["EVENTS_VERIFY_PEOPLE"] = "true" if on else "false"
+    return {"people_tool": "on" if P.enabled() else "off"}
 
 
 @app.put("/dev/users/{user_id}")
