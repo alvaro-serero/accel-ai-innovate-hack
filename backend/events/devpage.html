@@ -111,7 +111,9 @@ async function loadEvents() {
           const badge = v ? ` <span class="pill ok">✓ verified</span> <a href="${esc(v[2])}" target="_blank" rel="noopener">profile</a>` : "";
           return `<div class="who"><b>${esc(p.name)}</b> ${role ? "· " + esc(role) : ""}${badge}<br>${esc(p.opener)}</div>`;
         }).join("")}
-        ${m.event.url ? `<a href="${esc(m.event.url)}" target="_blank" rel="noopener">Open event page</a>` : ""}
+        ${!m.event.url ? "" : /\/sim-|sim\.example/.test(m.event.url)
+          ? `<span class="pill sim">SIM link: no real page behind it</span>`
+          : `<a href="${esc(m.event.url)}" target="_blank" rel="noopener">Open event page</a>`}
       </div>`).join("") : "No verified events.";
   } catch (e) { $("events").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
 }
