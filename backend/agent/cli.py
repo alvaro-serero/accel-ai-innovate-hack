@@ -4,13 +4,14 @@
     python -m backend.agent.cli qualify --user 1     (dry run: ranks and prints, writes nothing)
     python -m backend.agent.cli research --company "Mistral AI"
     python -m backend.agent.cli run --user 1
+    python -m backend.agent.cli kit --user 1 --job 42
 """
 import argparse
 import asyncio
 import json
 from pathlib import Path
 
-from backend.agent import profile, qualify, research, run
+from backend.agent import kit, profile, qualify, research, run
 
 
 def cmd_onboard(args) -> None:
@@ -101,6 +102,20 @@ def cmd_run(args) -> None:
         print_brief(run.load_brief(args.user))
 
 
+def cmd_kit(args) -> None:
+    user, job = profile.load_user(args.user), kit.load_job(args.job)
+    if user is None or job is None:
+        raise SystemExit("unknown user or job")
+    k = kit.make_kit(user, job)
+    print(f"KIT for {job['title']} @ {job['company']}   (You send it. FirstIn never sends anything for you.)\n")
+    print("CV bullets:")
+    for b in k["cv_bullets"]:
+        print(f"  - {b}")
+    print(f"\nCover letter ({len(k['cover_letter'].split())} words):\n{k['cover_letter']}")
+    print(f"\nLinkedIn note ({len(k['linkedin_note'])} chars):\n{k['linkedin_note']}")
+    print(f"\nContact: {k['contact_hint']}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="backend.agent.cli")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -127,6 +142,11 @@ def main() -> None:
     p.add_argument("--user", type=int, required=True)
     p.add_argument("--kind", default="manual", choices=["nightly", "manual", "eval"])
     p.set_defaults(func=cmd_run)
+
+    p = sub.add_parser("kit", help="application kit for one job (saved, never sent)")
+    p.add_argument("--user", type=int, required=True)
+    p.add_argument("--job", type=int, required=True)
+    p.set_defaults(func=cmd_kit)
 
     args = parser.parse_args()
     args.func(args)

@@ -1,12 +1,13 @@
 """Agent routes. Owner: Alvaro.
-STUBS: routes still marked TODO return fixtures until the real logic replaces them. Keep paths and response models.
+Thin HTTP layer: the logic lives in profile.py, qualify.py, research.py, run.py, memory.py, kit.py.
+Keep paths and response models (Marc's UI depends on them).
 """
 import asyncio
 
 from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, UploadFile
 
-from backend.agent import memory, profile, run
-from backend.app import fixtures
+from backend.agent import kit, memory, profile, run
+from backend.app.db import execute
 from backend.app.schemas import (
     Brief,
     FeedbackIn,
@@ -85,11 +86,17 @@ def post_feedback(body: FeedbackIn):
 
 @router.post("/jobs/{job_id}/kit", response_model=Kit)
 def make_kit(job_id: int, body: KitRequest):
-    # TODO(alvaro): kit.py
-    return fixtures.KIT
+    user = profile.load_user(body.user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="user not found")
+    job = kit.load_job(job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail="job not found")
+    return kit.make_kit(user, job)  # saved to kits, never sent: the student sends it
 
 
 @router.patch("/matches/{match_id}", response_model=Match)
 def patch_match(match_id: int, body: MatchPatch):
-    m = fixtures.MATCHES[0].model_copy(update={"status": body.status})
-    return m
+    if not execute("update matches set status = %s where id = %s", (body.status, match_id)):
+        raise HTTPException(status_code=404, detail="match not found")
+    return run.load_match(match_id)
