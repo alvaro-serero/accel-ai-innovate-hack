@@ -7,7 +7,6 @@ load_brief    GET /api/users/{id}/brief (latest finished run)
 Run status is derived from the row: finished_at null = running, stats.error = failed, else done.
 """
 import time
-from datetime import datetime, timedelta, timezone
 
 import httpx
 from psycopg.types.json import Jsonb
@@ -72,6 +71,20 @@ def save_matches(run_id: int, user_id: int, picks: list[dict], briefs: dict) -> 
         )
 
 
+def count_new_internships(job_ids: list[int]) -> int:
+    """Jobs among these that really opened in the last 24 h. A company's first poll (baseline)
+    and reopened postings are not new: same rule as the watcher's stats."""
+    if not job_ids:
+        return 0
+    return fetch_one(
+        """select count(distinct e.job_id) as n from job_events e
+           where e.job_id = any(%s) and e.kind in ('opened', 'reposted') and e.at >= now() - interval '24 hours'
+             and coalesce((e.detail->>'baseline')::boolean, false) = false
+             and coalesce((e.detail->>'reopened')::boolean, false) = false""",
+        (job_ids,),
+    )["n"]
+
+
 def finish_run(run_id: int, stats: dict, trace: list[dict]) -> None:
     execute("update runs set finished_at = now(), stats = %s, trace = %s where id = %s",
             (Jsonb(stats), Jsonb(trace), run_id))
@@ -90,10 +103,9 @@ async def execute_run(run_id: int, user_id: int) -> None:
         candidates, ghosts = qualify.load_candidates(user)
         trace.append(_step("load_candidates (SQL)", len(candidates) + ghosts, len(candidates), t,
                            f"{ghosts} ghost jobs skipped"))
-        day_ago = datetime.now(timezone.utc) - timedelta(days=1)
         stats.update(
             postings_checked=fetch_one("select count(*) as n from jobs where closed_at is null")["n"],
-            new_internships=sum(1 for c in candidates if c["first_seen_at"] and c["first_seen_at"] > day_ago),
+            new_internships=count_new_internships([c["id"] for c in candidates]),
             candidates=len(candidates),
             ghosts_skipped=ghosts,
         )

@@ -54,11 +54,23 @@ Memory lines are the student's own preferences and dislikes: let them move the s
 # ---------- stage 0: SQL prefilter (DB) ----------
 
 
+# A remote job outside the user's city must be open to someone in France: "Remote, US" is not.
+REMOTE_OK_RE = re.compile(r"\b(?:france|europe|european|emea|eu|anywhere|worldwide|global)\b", re.I)
+
+
+def remote_reachable(location: str | None) -> bool:
+    """'France - Remote' yes, 'Remote' yes (no country given), 'Remote, US' no."""
+    if REMOTE_OK_RE.search(location or ""):
+        return True
+    return not re.sub(r"remote|[^a-z]", "", (location or "").lower())  # nothing but "remote"
+
+
 def load_candidates(user: dict) -> tuple[list[dict], int]:
-    """Open internships in the user's city (or remote), minus dismissed ones.
+    """Open internships in the user's city (or remote and reachable from France), minus dismissed ones.
     Returns (candidates, ghosts_skipped)."""
+    city = (user.get("city") or "").lower()
     rows = fetch_all(
-        """select j.id, j.company_id, c.name as company, j.title, j.city, j.remote, j.url,
+        """select j.id, j.company_id, c.name as company, j.title, j.city, j.location, j.remote, j.url,
                   j.description, j.first_seen_at, j.published_at,
                   coalesce(j.ghost_score, 0) as ghost_score, j.ghost_reasons
            from jobs j join companies c on c.id = j.company_id
@@ -68,6 +80,7 @@ def load_candidates(user: dict) -> tuple[list[dict], int]:
                              where m.user_id = %(user_id)s and m.job_id = j.id and m.status = 'dismissed')""",
         {"city": user.get("city") or "", "user_id": user["id"]},
     )
+    rows = [r for r in rows if (r["city"] or "").lower() == city or remote_reachable(r["location"])]
     candidates = [r for r in rows if r["ghost_score"] < GHOST_LIMIT]
     return candidates, len(rows) - len(candidates)
 
