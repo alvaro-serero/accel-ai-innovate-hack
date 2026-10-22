@@ -1,0 +1,607 @@
+{
+  "at": "2026-10-22T13:17:51.264042+00:00",
+  "candidates": [
+    {
+      "url": "https://luma.com/6ed1oko1",
+      "title": "Apache Arrow / Parquet - June 2026 meetup in Paris · Luma",
+      "snippet": "​We’re excited to announce the **first ever Apache Arrow and Parquet meetup in Paris!** This meetup will be hosted **on June 18th** by **Datadog**, in their offices, 21 Rue de Châteaudun 75009 Paris.\n​[Arrow](https://arrow.apache.org/?utm_source=luma) and [Parquet](https://parquet.apache.org/?utm_source=luma) are two widely-used, open source, language-agnostic data formats for efficient representation of columnar data. They are often complementary: Arrow for in-memory data, Parquet for disk storage.\n\n​The meetup will start at 6:30 pm and will last until 9:30 pm.\n## ​Important\n​**Please register if (and only if) you plan to show up**, so that we can maximize occupation given a limited number of seats.\n​Please show up at the reception desk (21 Rue de Châteaudun) at the ground floor. An agent will welcome you there and check your identity. **Please have the QR code sent by Luma and/or an ID with you (passport or EU identity card).**\n## ​Talks\n​Talks will be roughly 15 minutes each, with 5 more minutes for questions and answers. All talks will be in English.\n​**📌 Zero-Materialization Merging: Concatenating Parquet Files via REE-Encoded Arrow**\n​*By Damien Profeta (**[Datadog](https://www.datadoghq.com/?utm_source=luma)**)*\n​Traditional compaction is often too CPU-intensive to solve the “small file problem” at scale. This talk introduces Zero-Materialization Merging, which bypasses the costly decode-and-re-encode cycle by concatenating Parquet files through direct [Run-End Encoded (REE)](https://arrow.apache.org/docs/format/Columnar.html?utm_source=luma#run-end-encoded-layout) Arrow manipulation.\n\nLocation\nDatadog\n21 Rue de Châteaudun, 75009 Paris, France\nPlease show up at the reception desk (21 Rue de Châteaudun) at the ground floor. An agent will welcome you there.",
+      "query": "Datadog meetup Paris 2026",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://events.datadoghq.com/fr/summits/datadog-summit-paris/terms-and-conditions",
+      "title": "Datadog Summit Paris 2026",
+      "snippet": "These Datadog Summit Paris 2026 Registration Terms and Conditions (\"Terms\") govern your registration for, and participation in, the Datadog Summit Paris to be held on Ocober 14-15 2026 (the \"Event\"). These Terms are an agreement between Datadog, Inc. (\"Datadog,\" \"we,\" \"us,\" or \"our\") and you or the entity you represent (\"you\"). By completing registration on the summit registration page or participating in/attending the Event, you confirm that you have read, understood and agree to these Terms. REGISTRATION To register for the Event, you must complete the Event registration process no later than Ocober 14-15 2026. Event registration may close earlier than October 14 2026 as we may determine in our sole discretion. Event registration is subject to availability. You must be 18 years of age or older to register for and/or attend the Event.",
+      "query": "Datadog hackathon Paris",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://www.techshowparis.fr/en/exhibitors/datadog",
+      "title": "Datadog",
+      "snippet": "# Datadog\nStand: CC10\n- *|* Cloud & AI Infrastructure\n- *|* Cloud & Cyber Security Expo\n- *|* Data & AI Leaders Summit\n#### Address\n21 Rue de Châteaudun\nParis\n75009\nFrance",
+      "query": "Datadog career fair students Paris",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://lu.ma/gm93f8iw",
+      "title": "Women TechMakers: Building with AI · Luma",
+      "snippet": "Registration Closed\nThis event is not currently taking registrations. You may contact the host or subscribe to receive updates.\nAbout Event\n​Note: we've reached our maximum capacity. If you cannot attend anymore, please cancel your participation to allow people on the waitlist to take a free spot. Thanks!\n​Talk #1 - From idea to Impact: Building a Platform for Generative AI applications by **Sarra Kazdaghli**, Engineering Manager, AI Platform @Datadog\n​This talk outlines the principles and guidelines for creating a seamless platform that drives efficient and responsible deployment of ML and LLM solutions, focusing on scalability, ethics, and real-world results.\n\nLocation\nDatadog\n21 Rue de Châteaudun, 75009 Paris, France",
+      "query": "site:lu.ma Datadog Paris",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://meetup.com/developer-community-paris/events/312378042",
+      "title": "Data & AI Paris Meetup, Thu, Jan 22, 2026, 6:00 PM | Meetup",
+      "snippet": "​Join us and the organizers of [Devworld Conference](https://devworldconference.com/) for an evening focused on Data & AI, bringing together professionals from Aerospike, ClickHouse, Databricks and Datadog working with modern AI tooling.\n\nLocation: Datadog Office - [21 Rue de Châteaudun, 75009 Paris, France](https://maps.app.goo.gl/ybCUuPZgzvosLuKN8)",
+      "query": "site:meetup.com Datadog Paris",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://www.eventbrite.fr/e/business-club-avec-alexis-le-quoc-co-fondateur-et-cto-de-datadog-tickets-1908206520069",
+      "title": "BUSINESS CLUB | Avec Alexis Lê-Quôc, co-fondateur et CTO de Datadog",
+      "snippet": "# BUSINESS CLUB | Avec Alexis Lê-Quôc, co-fondateur et CTO de Datadog\nTop Organizer\nByINSEAD Alumni Association France",
+      "query": "site:eventbrite.fr Datadog",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://ainowsummit.com/terms-of-sales",
+      "title": "Mistral AI NOW SUMMIT | Paris, May 28, 2026",
+      "snippet": "The AI Now Summit 2026 (the \"Event\") brings together research, applied AI, AI engineering, and corporate leaders working to build, deploy, and scale AI to achieve technical progress and to turn ideas and infrastructure into deployable systems.\n\nThe Event is organized by MISTRAL AI, a French limited joint-stock corporation, incorporated in Paris, under number 952 418 325, with VAT number FR95952418325, having its registered offices at 15 rue des Halles, 75001 Paris, France (\"Mistral AI\"). The Event shall take place on May 28, 2026 at the Carrousel du Louvre in Paris, and will include various keynotes, technical sessions and research talks. The full details and schedule of the Event, as may be updated from time to time, are available on the website [http://ainowsummit.com](http://ainowsummit.com) (the \"Event Website\").\n\nEvent Tickets are sold at the following prices, as displayed during the purchase process:\n- Early Bird (available in limited quantity and subject to availability): 390€\n- Regular: 690€",
+      "query": "Mistral AI meetup Paris 2026",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://worldwide-hackathon.mistral.ai",
+      "title": "Mistral AI Worldwide Hackathon 2026: build the next era of AI",
+      "snippet": "### Global Winner\n- $10,000 CASH\n- $15,000 MISTRAL CREDITS\n- HIRING OPPORTUNITY AT MISTRAL\n### Prizes in each location :\n![1st Place icon](/images/icons/gold.png)\n### 1st Place\n- $1,500 CASH\n- $3,000 MISTRAL AI CREDITS\n- PRIZES BY MISTRAL & SPONSORS\n![2nd Place icon](/images/icons/silver.png)\n### 2nd Place\n- $1,000 CASH\n- $2,000 MISTRAL AI CREDITS\n- PRIZES BY MISTRAL & SPONSORS\n![3rd Place icon](/images/icons/bronze.png)\n### 3rd Place\n- $500 CASH\n- $2,000 MISTRAL AI CREDITS\n- PRIZES BY MISTRAL & SPONSORS\n\n## Hackathon Schedule*\n### Wednesday\nFebruary 25th\nHackathon briefing with partners in an online meeting to present the tools.\n### Saturday\nFebruary 28th\nWelcome speech and introduction to the hackathon.\nTeam formation and idea brainstorming session.\nLunch break.\nCoding session begins. Mentors available for guidance.\nDinner break.\nContinued coding session and project development.\n### Sunday\nMarch 1st\nFinal coding session and project completion.\nLunch break.\nProject presentations and demonstrations to judges.\nJudging deliberation and winner announcement.\nClosing remarks and farewell.\n* Schedule may be subject to late changes",
+      "query": "Mistral AI hackathon Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://linkedin.com/in/alexandre-drean",
+      "title": "Alexandre Dréan",
+      "snippet": "### Ingénieur logiciel stagiaire at Mistral AI\n- **Dates:** June 2026 – Present\n- **Location:** Paris\n\n### Machine Learning Research Intern at LIRIS\n- **Dates:** May 2024 – September 2024\n- **Location:** Lyon, Auvergne-Rhône-Alpes, France\n\n### Frontend Engineer at Forum Aster\n- **Dates:** January 2023 – December 2023\n- **Location:** Palaiseau, Île-de-France, France\nDeveloped with HTML/CSS/JS and launched the website for the forum aster an annual career fair, a key platform that connected 1,000+ students with 50+ companies for three consecutive years https://forumaster.fr\n\n### Diplôme d'ingénieur Mathématiques et informatique — ENSTA Paris\n- **Dates:** September 2022 – June 2026",
+      "query": "Mistral AI career fair students Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://lu.ma/roboticshack",
+      "title": "Mistral AI Robotics Hackathon · Luma",
+      "snippet": "​**The Mistral AI Robotics Hackathon**\n*powered by Lightspeed Venture Partners.*\n​Join us on April 11th - 13th in Paris, **to learn about and build on World Models & Embodied AI**.\n​**For the first time ever**, teams will have access to **40+ robotic arms** from Hugging Face’s **The Robot** team, and build **Real World Models** powered by **Mistral AI.**\n​**There will be mentors and jury from lots of robotics companies, including:** Mistral AI, Hugging Face's LeRobot team, Mimic, Wandercraft, Phospho, NVIDIA, Scaleway... and more.\n---\n## ​🗓️ **Event Details**\n​The Robotics event will be made up of a pre-hackathon Summit evening and a 48h building hackathon.\n​**Summit details**\n​We are incredibly lucky to be hosting the summit in the newly opened [La Maison from Motier Ventures](https://www.lamaison.ai/?utm_source=luma), a place dedicated to AI & Research, early backers of Mistral AI & Genesis. This will be a unique event & opportunity to hear about the future of robotics from key opinion leaders & researchers.\n\n- ​**[Elvis Nava](https://www.linkedin.com/in/elvisnava/?utm_source=luma)******- co-founder @ mimic\n- ​**[Antonin Faure](https://www.linkedin.com/in/antoninfaure/?utm_source=luma)******- @ Mistral AI\n- ​**Location** : La Maison, by Motier Ventures\n- ​**Friday, April 11th**\n- ​6PM-7PM -participants to register & form teams\n- ​7.30PM -10 PM : panel discussion & cocktail\n​**Hackathon details**\n​The hackathon will take place in the exceptional offices of french unicorn Photoroom in the heart of Paris. Teams will have 48h to build & pitch demos to a stellar Jury panel on Sunday evening.\n- ​**Jury** :\n- ​**[Jean-Malo Delignon](https://www.linkedin.com/in/jeanmalo/?utm_source=luma)******- @ Mistral AI\n- ​**[Rémi Cadene](https://www.notion.so/1aee26adb8c98050a0efdd8fd5519020?pvs=21&utm_source=luma)**– LeRobot @ Hugging Face\n- ​**[Antoine Moyroud](https://www.linkedin.com/in/antoinemoyroud/?utm_source=luma)** - Partner @ Lightspeed Venture Partners\n- ​**[Theophile Gervet](https://www.linkedin.com/in/theophile-gervet/?utm_source=luma)** - co-founder @ Genesis\n- ​**[Pierre-Louis Biojout](https://www.linkedin.com/in/plbiojout/?utm_source=luma)**– CTO @ Phospho\n- ​**Dates & schedule :**\n- ​**Saturday April 12th**: 9AM - dev in teams\n- ​**Sunday April 13th**: 4PM - demos & jury pitches\n- ​**Participants:** 100 spots\n- ​**Prizes:** cash and lots of other surprises",
+      "query": "site:lu.ma Mistral AI Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://meetup.com/fr-fr/ai-agent-builders-paris-by-dataiku/events/316864860",
+      "title": "Reliable AI at Scale: Lessons from Dataiku & Mistral AI, mar. 27 oct. 2026, 18:30 | Meetup",
+      "snippet": "Détails Join us on October 27th at 6:30 pm at our Paris office to explore what it really takes to make AI work in the real world. Maxime Appé and Thierry Gengler from Dataiku will show how to keep autonomous LLM agents under control without sacrificing their flexibility. Then Harizo Rajaona from Mistral AI will take us behind the scenes of serving a text-to-speech model at scale, one audio frame at a time. 6:30 – 7:15 pm | Maxime Appé, Technical Product Manager, and Thierry Gengler, Engineering Manager, Dataiku Taming Rogue LLMs:\n\n7:15 – 8:00 pm | Harizo Rajaona, Software Engineer, Mistral AI Deploying and Running a TTS Model: The Fun Part Text-to-speech (TTS) models have improved dramatically in recent years, driven by the rise of Transformer architectures. Training one might sound like the hard part, but wait until you have to serve it at scale! TTS comes with its own set of challenges: tokenizing audio frames without information loss, combining a decoder with flow-matching transformers, and handling real-time streaming. This talk walks through these challenges and the engineering choices involved in building and serving Voxtral TTS, proving that making GPUs actually talk is hard but a lot of fun! The talks will be followed by open discussion and networking. Come ready to ask questions.",
+      "query": "site:meetup.com Mistral AI Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://www.eventbrite.fr/e/jai-deux-minutes-chrono-pour-pitcher-et-resauter-tickets-1984319915283",
+      "title": "J'AI DEUX MINUTES CHRONO POUR PITCHER ET RESAUTER !",
+      "snippet": "Event ended\n# J'AI DEUX MINUTES CHRONO POUR PITCHER ET RESAUTER !\nSales ended\nSat, Apr 25 • 10 AM",
+      "query": "site:eventbrite.fr Mistral AI",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://aws.amazon.com/events/summits/paris/faqs",
+      "title": "FAQ | AWS Summit Paris 2026",
+      "snippet": "April 1, 2026 | Palais des Congres de Paris, Porte Maillot\n\nAWS Summit Paris is ideal for IT and business executives, business and technical decision makers, developers, engineers, system administrators, systems architects, and IT. Session content will accommodate all levels of familiarity from beginners (level 100) to expert (level 400). Attendees can choose between lecture-style presentations, interactive learning guided by AWS experts, customer keynotes, whiteboarding sessions, an Expo, and much more.\n####\nThe event will be held at the [Palais des Congres](https://www.viparis.com/en/our-venues/palais-des-congres-de-paris-en) in Paris on Wednesday, April 1, 2026. See the detailed agenda and session catalog on the agenda page.\n####\nNo. Registration is complimentary and enables access to the keynote, sessions, Expo, meals, and receptions.\n####\nThe [Palais des Congres](https://www.viparis.com/en/our-venues/palais-des-congres-de-paris-en) is located near Champs-Elysées, at 2 Place de la Porte Maillot, 75017 Paris, with easy access to the Metro/RER Neuilly-Porte Maillot station.\n\n####\nNo. Space in the keynote hall is limited and registering for AWS Summit does not guarantee keynote access. The keynote will be livestreamed in the Expo and in breakout rooms to accommodate overflow seating.\n\nWe’ll have the following services available the duration of the Summit: mobility device, live captioning, and dispersed and designated seating. To inquire about any of these services or to request a service you don’t see listed, please reach out to customer support at [aws-paris-summit@amazon.com](mailto:%20aws-paris-summit@amazon.com).",
+      "query": "Amazon meetup Paris 2026",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://amazonappdev2026.devpost.com/",
+      "title": "Build, Ship, Shape: Amazon Developer Hackathon",
+      "snippet": "#### Welcome to the Amazon Developer Hackathon\nFor the first time, Fire TV, Alexa+, Ring, and Bee are all part of one global hackathon. Build for one product or use several to connect the living room, the front door, and the cloud. Get started now with our SDKs, simulators, and sample code.\nNew to building for Amazon devices and services? We'll help you get from idea to submission with documentation and live office hours. Use our AI tools to prototype and troubleshoot along the way.\nChoose a track and show off what you build! 🚀\n#####\n##### Why join?\n- Be part of the first hackathon where Fire TV, Alexa+, Ring, and Bee are all open to outside developers at once\n- Your product feedback goes directly to the teams building Fire TV, Alexa+, Ring, and Bee\n- Compete for a share of $190K value of cash and AWS credits, plus a 1:1 meeting with the Amazon Developer team for track winners\n##### Get Started\n- Pick your track: Fire TV, Alexa+, Bee, or Ring\n- Set up the developer environment for your track (see [Resources](https://amazonappdev2026.devpost.com/resources))\n- Review the track details and requirements to start building\n- Submit your working demo, code repo, and product feedback by the deadline\n### Requirements\n#### What to Build\nPick a primary track and ship a working demo. You can layer a mini challenge onto the same project for extra ways to win, but each project can only win one track prize and one mini challenge prize.\n**Build or significantly update working applications using Amazon Developer tools into the following primary tracks:**\n- **Fire TV\n**Launch a demo-ready app on Fire OS or Vega OS. Use React Native, web technologies, or Android (Kotlin/Java), any framework is fine, as long as it runs on Fire OS or Vega OS.\n- Priority categories: AI-enhanced viewing, sports, fitness, family entertainment, multi-modal UX, and computer vision.\n- **Alexa+\n**Experience how brands in Preview are building and shipping experiences on Alexa+ that our customers love:\n- Build a self-hosted MCP server (spec 2025-11-25 or later, Streamable HTTP) or an Agent Skill. MCP is the open standard that powers Alexa+ integrations.\n- New to MCP? Build a simulated Alexa+ experience in a web app using your preferred agentic tool.\n- **Bee (Wearable AI)\n**Build a project that connects to real data recorded and processed through a Bee device or an Apple Watch running Bee software, using Bee's CLI, MCP, or Agent Skills. Your demo needs to show your project actually using that data to do something useful for a person.\n- Priority use cases: education, developer experience, and personal productivity.\n- **Ring\n**Build a new app or extend an existing one using Ring APIs, SDKs, simulators, or devices. A physical Ring device is not required.\n- Priority categories: access control, business systems, IoT home automation, accessibility, and caretaking.",
+      "query": "Amazon hackathon Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://alumni.dsti.institute/fr/event/amazon-student-immersion-day/2026/06/12/73",
+      "title": "Amazon Student Immersion Day | DSTI Alumni",
+      "snippet": "We're excited to invite you to the **AWS Student Immersion Day** on **Friday, June 12th 2026!**\nA half-day to discover what it's like to work at Amazon Web Services and to practice on AWS tools. **Two separate tracks** are available — choose the one that matches your interests:\n- **Sales Track** (morning) — No prerequisites\n- **Tech Track** (afternoon) — Basic technical knowledge required (comfortable with code, CLI, and cloud concepts)\n**You must register for one track only.** Each track is a standalone experience.\n**Sales Track — Morning (9:30 – 12:30)**\n- What we do at Amazon — the big picture\n- A Day in My Life — 2-3 AWS Sales professionals share their roles and daily experience\n- Hands-on: Cloud Innovation Challenge (business simulation)\n**Tech Track — Afternoon (13:30 – 17:30)**\n- Presentation of AWS\n- Careers in Tech @ AWS — Solutions Architects, Cloud Engineers, and more\n- Hands-on Workshop: Building Agentic AI on AWS\n- Wrap-up, Q&A & Networking\n**Prerequisites:** Basic understanding of programming, command line, and general cloud concepts.\nPractical Info\n- **Date: Friday, June 12th 2026**\n- **Location: Tour Carpe Diem, CDG11 — Paris La Défense**\n- **Language: English**\n- **What to bring: Your laptop & curiosity!**\n**** **\nRegister now: **[https://d28kr9n8tit2s.cloudfront.net/registration/index.html](https://d28kr9n8tit2s.cloudfront.net/registration/index.html)****\n**\nSpots are limited — secure yours now!**\nConférences\nTour Carpe Diem, CDG11 — Paris La Défense\n31 Pl. des Corolles 92400 COURBE",
+      "query": "Amazon career fair students Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://lu.ma/kpeo2x4a",
+      "title": "\"Scaling With AI - How Unicorns Stay Ahead\" Pioneers Roundtable at La Maison Motier ✨ w/ AWS · Luma",
+      "snippet": "​This event will be hosted at the prestigious** La Maison** location by **Motier Ventures** - the leading French venture investor backing top companies, such as **Mistral AI, Dust** and** Animaj.**\n\n​📅 **Friday, July 4th at 10:30 AM (CET)**\n📍 *La Maison by Motier Ventures* – 2 Rue des Mathurins, 75009 Paris\n\n​**AWS** ([aws.amazon.com](http://aws.amazon.com/?utm_source=luma)) is the world’s most widely adopted cloud platform, helping ambitious founders build and scale with cutting-edge AI, data, and infrastructure tools.",
+      "query": "site:lu.ma Amazon Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://meetup.com/fr-FR/real-time-data-at-scale-paris/events/313488645",
+      "title": "Webinar: GenAI App Dev with TiDB and Amazon Bedrock, mer. 25 févr. 2026, 11:00 | Meetup",
+      "snippet": "GenAI app developers face numerous challenges, from managing multiple data sources and complex infrastructure to scaling unpredictable workloads. In this webinar, see how TiDB and Amazon Bedrock give you a clean, scalable backbone for GenAI app dev so you can ship features faster.\n\nWe’ll show how to keep latency predictable as traffic surges, run transactional + vector/semantic queries on fresh data, and use Amazon Bedrock to power RAG, chat, and agents. You’ll also discover real-world patterns from leading AI companies, plus a demo that ties it all together.\n\n- Amazon Bedrock in practice: Use managed foundation models, orchestration, and guardrails to go from prototype to production safely.",
+      "query": "site:meetup.com Amazon Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://eventbrite.fr/organizer/pricing",
+      "title": "Tarification et fonctionnalités Eventbrite pour les organisateurs",
+      "snippet": "15 M 10 M 5 M  Outils optimisés par l’IA       Outils publicitaires pour les e-mails et les réseaux sociaux avec des audiences intelligentes       Faites de la publicité auprès des acheteurs de billets sur la plateforme       Libre-service + Créez un événement en quelques secondes       Audience grand public1  90 M eTix 20 M See Tickets 15 M Dice 10 M Universe 5 M Outils optimisés",
+      "query": "site:eventbrite.fr Amazon",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://forum-cs.fr/en",
+      "title": "Business Area — Forum CentraleSupélec",
+      "snippet": "from France\nCentraleSupélec is the 2nd major engineering school in France, and the 1st for the employability of its graduates according to the Times Higher Education. In one day, take the opportunity to shine with its best talents and meet your future colleagues.\n19 *November*\n2026\nPavilion 7.1\nParis Expo\nPorte de Versailles\n01\n+3000 students.\nOne day.\nThousands of *connections.*\nOne of the largest student fairs in Europe in terms of number of students and companies present. Top 3 students prepared, motivated, actively looking for internships, work-study programs and jobs in your sector.\nThe Forum in figures — 2025 edition\n0Participating companies\n0+Students and graduates\n0%Business satisfaction\n0thEdition · since 2009\n+95%Student satisfaction\n02\nYour brand face\nto *talents of tomorrow.*\nStands designed to showcase your business and encourage quality meetings in an exceptional Parisian setting. Start-ups and large CAC 40 groups choose each year to return to the CentraleSupélec Forum.\n\nThe 2nd major engineering school\nof France — and the *1st*\nFor *employability*\nResulting from the merger between École Centrale Paris and Supélec in 2015, CentraleSupélec trains high-level general engineers, capable of combining scientific excellence and strategic vision. Profiles that the biggest organizations compete for — and which return to the Forum every year.\n2nd school\nof engineersof France — The New Factory 2025 and 2026\nNo. 1 in France\nfor employabilityTimes Higher Education 2025 — 3rd consecutive year\nNo. 1 in France\nbusiness relationsAgires Synergie Trophy — 6th consecutive year (2025)\n8 Scientific dominants\n### Cutting-edge specialties\nfrom each sector\nEach student deepens a major in addition to their general training. A versatility that makes them operational candidates in very different professions – and sought after well beyond strict engineering.\nEnergyIT & DigitalMathematics & Data SciencesConstruction · City · TransportationLiving · Health · EnvironmentLarge Interacting SystemsCommunicating systems & IoTPhysics & Nanotechnologies\n\nThe Forum offers two formats of private meetings which allow you to go much further than a quick exchange at the stand. You select the profiles yourself from a panel of students who have expressed interest in your company.\n- **Coffee meeting**: 30 minutes with 4 students pre-selected by you, in an informal setting conducive to recruitment\n- **Lunch meeting**: 1 hour with up to 10 students, meals included — the ideal format for in-depth discussions\n- CV sent in advance in compliance with the GDPR via the MyWayForum platform\n\nThis 2026 edition marks a milestone: the Forum CentraleSupélec takes over Pavilion 7.1 of Paris Expo Porte de Versailles — the benchmark pavilion for Parisian professional events. A larger, more modern framework, worthy of our ambitions.",
+      "query": "forum entreprises ingénieurs Paris 2026",
+      "company": null
+    },
+    {
+      "url": "https://artistes-francais.com/en",
+      "title": "Le Salon des Artistes Français",
+      "snippet": "# Le Salon\n# Société des Artistes Français\n##### From February 13 to 15, 2026\nAt the Grand Palais - Paris\n\nThe Salon is a Parisian event organized by artists, for artists. An event that fits in with its time, more than 900 contemporary artists exhibit each year. An event that is part of history, artists have been bringing the Salon to life for more than three centuries.",
+      "query": "salon stage Paris 2026",
+      "company": null
+    },
+    {
+      "url": "https://itevents.uk/event_details/242",
+      "title": "Datadog Summit Paris - Paris 2026 - IT Events EMEA",
+      "snippet": "# Datadog Summit Paris\nEvent In Person\nFree one-day Datadog summit with deep dives into observability, security, and AI, plus technical workshops.\n##### Date & Time\n**Date:** Thursday, October 15, 2026\n**Time:** 09:00 AM - 05:30 PM (Central European Time)\n##### Location\n**Venue:** Maison de la Mutualité, 24 Rue Saint-Victor, 75005 Paris, France\n**City:** Paris\n##### Cost\nFREE",
+      "query": "Datadog meetup Paris 2026",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://careers.datadoghq.com/detail/7158105?gh_jid=7158105",
+      "title": "Product Management Intern | Datadog Careers",
+      "snippet": "Product Management Intern Paris, France We're looking for students to join our Product Management team to reinforce the product development lifecycle and partner with members of our Engineering, Design, and Product Marketing teams. As Datadog and the cloud monitoring space expand, you will have a high-impact opportunity to adapt your product vision to the market’s needs and the needs of our company as we scale. Students can sign up anytime for a free Datadog Pro account!\n\nWhat You’ll Do: Gain experience working with different parts of the organization to scale an enterprise product and reinforce the product development lifecycle Take a project from an idea to completion, working through all stages of the development lifecycle Partner with members of our Engineering, Design, and Product Marketing teams Support engineering teams by creating software development tickets and pull requests when necessary Lead customer calls and gather customer feedback Enhance technical writing skills through blog posts, product briefs, and new feature announcements Prepare and deliver a technical demo of your Datadog product Who You Are: You will graduate in 2026 with a degree in computer science, software engineering, or a related field You have prior product management, technical program management or product-oriented technology experience You have worked with or have an understanding of B2B products and its development lifecycle You can take complex ideas and dissect them into simple and understandable specifications You have strong communication and writing skills You enjoy communicating with highly technical customers You are a risk taker and have an entrepreneurial spirit You are available to complete a 6-month internship starting in February, March, April, May or June 2026 (we are unable to accommodate internships at any other time) Datadog values people from all walks of life. We understand not everyone will meet all the above qualifications on day one. That's okay. If you’re passionate about technology and want to grow your skills, we encourage you to apply. Benefits and Growth: Mentorship opportunities with team members, leadership, and beyond Continuous professional development and product training opportunities Intradepartmental mentor and buddy program for in-house networking In-person intern cohort and monthly company social events An inclusive company culture, ability to join our Community Guilds (Datadog employee resource groups) Relocation support and travel benefits Unlimited snacks and drinks in our office; catered lunches on Monday, Wednesday, and Friday Beautiful offices in convenient locations Benefits",
+      "query": "Datadog career fair students Paris",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://lu.ma/n84hk0l9",
+      "title": "🔥 AWS x Anthropic x Datadog GenAI Hackathon — $35K+ in Prizes · Luma",
+      "snippet": "​Join us for an immersive, hands-on hackathon where builders, developers, and AI enthusiasts come together to create **production-ready Generative AI agents** using the latest innovations from **AWS, Datadog, and ecosystem partners**.\n​This unique challenge invites participants to leverage cutting-edge tools such as **Amazon Bedrock**, **Strands Agents**, **Amazon Bedrock AgentCore**, **Datadog MCP**, and **Kiro Powers**, alongside select AWS Partner products, to push the boundaries of **Large Language Models (LLMs)**, AI agent workflows, and real-world AI applications.\n\n🌟 **[Bharadwaj Tanikella](https://www.linkedin.com/in/btanikella/?utm_source=luma)** – Applied AI @ Datadog\n\n​**Datadog**\nDatadog is a leading monitoring and observability platform for cloud-scale applications, enabling teams to visualize, secure, and optimize modern systems—including **AI- and LLM-powered workloads**—with real-time insights.",
+      "query": "site:lu.ma Datadog Paris",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://meetup.com/fr-FR/real-time-data-at-scale-paris/events/313600722",
+      "title": "Scaling the AI-Native Future on a Modern Database, jeu. 30 avr. 2026, 17:00 | Meetup",
+      "snippet": "Join TiDB and XP2Cloud for an exclusive in-person meetup where we pull back the curtain on scaling massive production workloads. Discover how Engie leverages TiDB’s distributed power to navigate hyper-growth, and get a first look at how **TiDB X** is redefining the category with AI-native capabilities**.**\nWe’ll dive deep into real-world use cases, debate cloud architecture, and show you why the future of the database isn’t just “distributed” — it’s highly intelligent, scalable, and unified.\n\n- **The AI-Native Frontier:** Get an exclusive look at TiDB X, an AI-native database platform designed to unify OLTP, analytics, and vector data, auto-tune performance, and simplify the development of LLM-powered applications.\n- **The Engie Blueprint:** Find out how Engie uses TiDB to ingest and refresh ~10TBs of user data daily, power in-app analytics, and surface usage-consumption insights at scale.",
+      "query": "site:meetup.com Datadog Paris",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://eventbrite.fr/help/en-us/articles/460838/eventbrite-privacy-policy",
+      "title": "Eventbrite Privacy Policy | Eventbrite Help Center",
+      "snippet": "Welcome to Eventbrite! We are a ticketing and registration platform dedicated to bringing the world together through live experiences. Through our platform, mobile apps and services, we enable people all over the world to create, discover, share and register for events.",
+      "query": "site:eventbrite.fr Datadog",
+      "company": "Datadog"
+    },
+    {
+      "url": "https://ai.engineer/paris/2026/tos",
+      "title": "AI Engineer",
+      "snippet": "The AI Engineer Paris 2026 (the **“Event”**) brings the global AI engineering movement to Europe for the first time.\n\nThe Event is organized by MISTRAL AI, a French limited joint-stock corporation, incorporated in Paris, under number 952 418 325, with VAT number FR95952418325, having its registered offices at 15 rue des Halles, 75001 Paris, France (**“Mistral”**). The Event shall take place on September 23-24, 2026 at [Station F](https://stationf.co/) in Paris, and will include various keynotes, technical sessions and research talks. The full details and schedule of the Event, as may be updated from time to time, are available on the website [https://ai.engineer/paris/2026](/paris/2026) (the **“Event Website”**).\n## 2. Eligibility for the Event\nAccess to the Event is conditional on possession of an Event Ticket. The Event is a professional conference designed for individuals acting within the scope of their professional activities. As such, Attendee must be a professional, i.e., any natural or legal person, whether public or private, who acts for purposes falling within the scope of their commercial, industrial, artisanal, liberal, or agricultural activity, including when acting in the name of or on behalf of another professional. Natural persons must be at least 18 years of age to purchase a Ticket. Attendee must provide accurate and up-to-date information when purchasing an Event Ticket. Mistral reserves the right to cancel the sale of an Event Ticket if these eligibility criteria are not met.\n\nEvent Tickets are sold at the following prices, as displayed during the purchase process:\n| Ticket type | Price |\n|---|---|\n| Super Early Bird | €360 |\n| Early Bird | €480 |\n| Regular | €720 |\n| Late Bird | €960 |\n| Expo Pass | €144 |",
+      "query": "Mistral AI meetup Paris 2026",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://luma.com/mistralhack-paris?tk=ADiTrW",
+      "title": "Mistral Worldwide Hackathon - Paris edition · Luma",
+      "snippet": "# ​Mistral Worldwide Hackathon - **Paris** Edition\n​Mistral AI is launching its largest hackathon.\n​Ever.\n​The Mistral Worldwide hackathon is taking place simultaneously in 7 cities:\n​*Paris London / NYC / SF / Tokyo / Singapore Sydney + online.*\n​We're bringing together 1000+ of the best AI engineers for a 2-day overnight hackathon around the world. This hackathon is organized in partnership with [Weights & Biases](https://wandb.ai/site/?utm_source=luma), [NVIDIA](https://www.nvidia.com/fr-fr/?utm_source=luma), [AWS](https://aws.amazon.com/?utm_source=luma) and operated by the [Iterate](http://hackiterate.com/?utm_source=luma) team. The other special awards sponsors include [ElevenLabs](https://elevenlabs.io/?utm_source=luma), [Hugging Face](https://huggingface.co/?utm_source=luma), [Jump Trading](https://www.jumptrading.com/?utm_source=luma), [WhiteCircle,](https://whitecircle.ai/?utm_source=luma) [Supercell](https://supercell.com/?utm_source=luma) and more to come…\n---\n## ​Practical Info\n​**Dates:** February 28th - March 1st\n​**Schedule:** From 9:00 AM to 7:00 PM the following day.\n​T**eams:** 1-4 people\n- ​Limited capacity per city\n- ​Overnight stay will be possible across all venues\n- ​Exact venue details will be accessible to selected participants\n- ​All applications are reviewed by the Mistral team on a rolling basis\n- ​Breakfast, lunch & dinner will be provided to all hackers over the 2 days\n- ​Selected participants will receive confirmation one week before the event\n​**Before event day:** find your teammates or we will help you find one on the spot.\n---\n## ​Prizes\n​**🥇** Global Winner:\n- ​$10,000 cash\n- ​$15,000 Mistral credits\n- ​Hiring opportunities at Mistral\n- ​Final interview for the *[Supercell AI Innovation Lab](https://ailab.supercell.com/?utm_source=luma)* program (value: $100k)\n​**Prizes for the Paris winners:**\n​**🥇 1st place**\n- ​$1,500 cash\n- ​$3,000 Mistral credits\n- ​3 months ElevenLabs Pro\n​**🥈 2nd place**\n- ​$1,000 cash\n- ​$2,000 Mistral credits\n​**🥉 3rd place**\n- ​$500 cash\n- ​$1,000 Mistral credits\n​Special prizes:\n- ​Best Voice Use Case (ElevenLabs)\n- ​$2,000-6,000 in credits (depending on team size)\n- ​Best use of Mistral Vibe\n- ​Mistral branded AirPods\n- ​Best Video Game Project (Supercell)\n- ​Mistral branded Game Boy\n- ​Consideration for *[Supercell AI Innovation Lab](https://ailab.supercell.com/?utm_source=luma)* program (value: $100k)",
+      "query": "Mistral AI hackathon Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://mistral.ai/careers/",
+      "title": "Careers",
+      "snippet": "We are scaling one of the most ambitious independent AI platforms globally. We build cutting-edge, open-source AI models, products, and solutions that push the boundaries of innovation, empowering organizations to tackle the world’s most complex challenges.\n- Pioneering frontier AI models that redefine what’s possible.\n- Shipping the platforms that bring AI to life.\n- Empowering customers to solve real business challenges with AI.\n- Building the operational foundations for long-term success.",
+      "query": "Mistral AI career fair students Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://lu.ma/openbuild-paris",
+      "title": "Windsurf x Mistral x The AI Collective — Open Build Paris · Luma",
+      "snippet": "​Builders, welcome. We’re teaming up with **[Windsurf](https://windsurf.com/?utm_source=luma)** – the AI-native IDE that’s rethinking what it means to code in flow – and **Mistral AI**, France’s flagship AI company with cutting-edge models specialized in coding (Codestral, DevStral) – for a special evening designed to inspire, connect, and unlock your next creative wave.\n​This is the first-ever global collab between **[The AI Collective](https://www.aicollective.com/?utm_source=luma)**, **Windsurf**, and Paris-based **Mistral**, and we’re keeping it fresh, simple, and high-vibe.\n\n- ​Special spotlight on **Mistral AI’s Codestral & DevStral models**, powering next-gen AI coding\n\n- ​**Exclusive prizes** from Windsurf, The AI Collective, and Mistral – including **free API access + $3k credits** for the winning teams that build with Mistral models\n\n- ​**7:30pm - Open Build**\nCode alongside fellow devs, with chapter leads & Windsurf engineers on hand. Try out Mistral’s Codestral & DevStral models (free API tier for all participants).\n- ​**9:00pm - Demos & Prizes**\nShare what you built, get feedback, and inspire others.\n\n​**[Mistral AI](https://mistral.ai/?utm_source=luma)** is Europe’s fastest-rising AI champion, developing state-of-the-art open-weight models, with Codestral and DevStral pushing the frontier of coding intelligence.\n\nParis, France\nThe world’s largest AI community. Uniting 200k+ pioneers across 100+ global forums. Building the human layer for the AI era.",
+      "query": "site:lu.ma Mistral AI Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://meetup.com/lean-paris/events/313928991",
+      "title": "Paris Lean Inaugural Meetup, Fri, Apr 24, 2026, 7:00 PM | Meetup",
+      "snippet": "Join us for the inaugural **Paris Lean Meetup**, generously hosted by **ITN, Mines Paris – PSL**, and sponsored by **Mistral AI**!\nFor this first session, we are excited to present a dream lineup featuring two talks:\n- **Leonardo de Moura** (AWS, Lean FRO): *Lean: Extensible, Scalable, Trusted*\n- **Roman Soletskyi (**Mistral.AI**)**: *Leanstral*, the first open-source code agent designed for Lean 4\nWe’re really looking forward to seeing you at the meetup!\nAfter the talks, we’ll continue with some informal discussion over pizza and drinks (kindly sponsored by Mistral), a great opportunity to meet others interested in Lean, AI, and formal proofs.",
+      "query": "site:meetup.com Mistral AI Paris",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://www.eventbrite.fr/cc/unsw-founders-ai-programs-4811637",
+      "title": "UNSW Founders: AI Programs by UNSW Founders Program | Eventbrite",
+      "snippet": "Collection\n# UNSW Founders: AI Programs\n9376 abonnés\nUNSW Founders supports AI innovation through dedicated AI events, hackathons and programs\n\n### AI: After Hours\nTue, Feb 10, 5:00 PM\nGratuit",
+      "query": "site:eventbrite.fr Mistral AI",
+      "company": "Mistral AI"
+    },
+    {
+      "url": "https://eventbrite.com/e/amazon-week-2026-the-bioeconomy-and-the-role-of-scientific-networks-tickets-1990162908834",
+      "title": "Amazon Week 2026 - The Bioeconomy and The Role of Scientific Networks",
+      "snippet": "Amazon Week 2026 Paris connects leaders and innovators to advance sustainable solutions for the Amazon after COP30.\nAmazon Week 2026 Paris brings together investors, companies, policymakers, innovators, and civil society to advance sustainable development in the Amazon through partnerships, networking, and market-driven solutions.\nBuilding on the outcomes of COP30 in Belém, the event will promote sustainable products and bioeconomy initiatives, strengthen international cooperation, and explore financing opportunities that support biodiversity conservation, inclusive growth, and sustainable value chains.\nThe programme will also foster dialogue and knowledge exchange on climate finance, innovation, sustainable trade, and the global importance of the Amazon region.\nMore information at: https://www.amazonweek.eu/2026-edition/\nProgram:\n8:30 - Registration\n09:00 to 09:35 – Opening Session\nWelcome Speech\nBrazilian Ambassador to France\nKeynote Speech\nAmbassador André Corrêa do Lago, **President** of COP30\n09:35 to 10:35 – Session 1: Overview of the Bioeconomy Innovation Ecosystem in the Amazon\n(1) BAS – Bioeconomy as a Solution Convergence Hub\nVeridiana Sedeh, Director of Strategic Partnerships Europe-Latin America\n(2) MORFO\nQuentin Franque, Product Director\n(3) L’Oréal\nCompany representative TBC\n(4) CNP\nRosana Techima Salano, Sustainability Director\n(5) Nossa Fruits\nDamien Binois, Founder\nQ&A\n10:35 to 10:55 – Coffee Break\n10:55 to 12:00 – Session 2: From Speech to Implementation: Financing the Amazonian Bioeconomy in Practice\n(1) Expertise France\nJanaína Galvão, Project Manager\n(2) KPTL\nDanilo Zelinski, Head of Innovation Investment for Nature & Climate\n(3) AFD\nAlejandro Barreneche\n(4) CGEE\nBeatriz Vilela, Project Leader\nQ&A\n12:00 to 13:30 – Lunch Reception\n13:30 to 14:00 – Afternoon Opening Session\nKeynote Speech: The Role of International and Pan-Amazonian Cooperation in Strengthening Scientific Networks\nMarília Closs, Project and Research Coordinator at Plataforma CIPÓ\nQ&A\n14:00 to 15:00 – Session 3: RESA — Research Network for a Sustainable Economy in the Amazon\n(1) Institutional Presentation: RESA\nPedro Zanetti, Bioeconomy Specialist\n(2) Contributions of Cacao Farming to the Socio-Bioeconomy under Climate Change in the Amazon: Family Farmers in Agroforestry Adaptation for Sustainable Territorial Development\nDr. Daniel Palma Perez Braga, Associate Professor, INEAF/UFPA\n(3) Living Laboratory of Agro-Extractivist Youth in the Lower Amazon\nDr. Wandicleia Lopes de Sousa, Professor, UFOPA Campus Alenquer\nQ&A\n15:00 to 15:20 – Coffee Break\n15:20 to 16:05 – Session 4: CGEE — Center for Strategic Studies and Management\n(1) How to Implement Socio-Bioeconomy Policies in Support of Development\nMariam Fofana, Research Fellow at IDDRI\n(2) Mapping the Bio-Industry Chains in Brazilian Biomes and the Brazilian National Bioeconomy Plan\nBeatriz Vilela, Project Leader at CGEE\nQ&A",
+      "query": "Amazon meetup Paris 2026",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://aws.amazon.com/telecom/breaking-barriers/",
+      "title": "AWS Breaking Barriers Hackathon",
+      "snippet": "Breaking Barriers is our flagship hackathon series that brings together developers, innovators, and technology leaders to co-create cutting-edge solutions using AWS technologies. These intensive, hands-on events typically span 3 days and are hosted in cities close to our developer communities, creating accessible opportunities for builders of all skill levels to gain practical cloud experience. We've engaged over 3,000+ developers across 100 countries and awarded more than $50,000 in prizes, fostering a global community of innovation. Each hackathon features gamified challenges, industry keynotes, and ample opportunities for with mentorship from AWS experts, industry partners, and technology leaders throughout the event.",
+      "query": "Amazon hackathon Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://aboutamazon.eu/news/community-engagement/inspiring-and-igniting-passion-a-ninth-grade-internship-like-no-other",
+      "title": "Inspiring and igniting passion, a ninth-grade internship like no other",
+      "snippet": "Pascale was bowled over by the Amazon Future Engineer program and the professional way her son was welcomed during his mandatory ninth-grade internship in France. The internship presented the different professions within the IT sector and has helped her son clarify his career plan.\nAmazon organized a week-long internship for 25 students in the ninth grade at Jean Jaurès middle school, a priority education establishment in Clichy, France. The students were able to discover the different professions within the IT sector, learn about artificial intelligence, attend an introductory lesson on computer coding, and see demonstrations of Alexa-controlled robots. “*The way our children were welcomed, as well as the human and financial resources provided for them, was amazing. They were taken really seriously,”* says Nykou’s mother.\n\nThis intensive internship was designed to introduce the children to the world of business and its different careers. The students attended presentations and workshops specifically designed for them by volunteers from Amazon’s workforce. They learned how to code in Scratch. They controlled robots with Alexa. They learned the basics of artificial intelligence and the drone delivery project, Prime Air. They also worked on the attitude they should adopt in a company and identified their strong points to help develop their personality.\nAfter visiting the Clichy and Défense offices, they then went on a virtual visit to a fulfillment center to understand the journey that packages go on. They were also set a challenge! The students were divided into groups of five and asked to imagine what the greatest Amazon innovation might look like in 2040. In true Amazon style, they were told that the sky was the limit, as long as the needs of the customer were met.\n\nThis internship has been a wonderful opportunity for the pupils of Jean Jaurès. The Amazon Future Engineer program is both professional and educational, and our children have gained a lot from it. You only have to look at the amazing handbook given to each child at the beginning of the week’s internship. Some 30 pages long, the handbook is full of useful information and was written to help the children in their personal development,”* adds Nykou’s mother.",
+      "query": "Amazon career fair students Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://lu.ma/nmqgrfws",
+      "title": "Bio x AI Hack - Paris Edition · Luma",
+      "snippet": "This hackathon is sponsored by Amazon Web Services (AWS) In Communities to bring biotech teams closer to their goals, from early development to funding.\n\n​Additional information​ ​​This is a fully in-person event in Paris. ​​Food and drinks will be provided. ​​You can join as a team or individually. ​​Apply now to secure your spot. Location Please register to see the exact location of this event. Paris, Île-de-France Entrepreneurs First invests in exceptional individuals to build startups from scratch.",
+      "query": "site:lu.ma Amazon Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://meetup.com/fr-FR/ai-performance-engineering-paris/events/pjvnttyjcjbtb",
+      "title": "Hacking AI Accelerators: Maxxing Tokens & Outcomes with Rob Ferguson @ Fireworks, lun. 15 juin 2026, 18:00 | Meetup",
+      "snippet": "**Talk #1: Performance and Token Maxxing for AI Startup Founders - Hacking AI Accelerator Programs by Rob Ferguson, VP of Technical & Strategy @ [Fireworks.ai](http://Fireworks.ai) (former Head of AI Accelerators @ AWS and Azure)**\nIn this talk, Rob will describe how the role of the AI startup founder has changed over the last year. He'll also describe ways to hack the AI accelerator programs - as well as maximize token usage. Rob developed the AI accelerator programs at both AWS and Azure - and has a unique perspective on how these programs operate - and how to extract the highest and best outcomes from these programs.",
+      "query": "site:meetup.com Amazon Paris",
+      "company": "Amazon"
+    },
+    {
+      "url": "http://eventbrite.fr",
+      "title": "Découvrez les meilleurs événements locaux et activités à faire",
+      "snippet": "ven. 26 juin, 09:30\nHilton\nGratuit",
+      "query": "site:eventbrite.fr Amazon",
+      "company": "Amazon"
+    },
+    {
+      "url": "https://en.icam.fr/actualites/icam-en/forum-icam-entreprises-2026-a-celebration-of-networking-and-innovation",
+      "title": "Forum Icam Entreprises 2026: A Celebration of Networking and Innovation",
+      "snippet": "Entreprises Grands PartenairesIcam\n31 Mar 2026\n**The Forum Icam Entreprises 2026, held on Friday 27 March** at the Espace Champerret in Paris, was a resounding success! The Icam students from across our various campuses, along with the many companies in attendance — including our Major Partner companies — contributed greatly to this achievement. This 16th edition, powered by the enthusiasm and energy of everyone involved, confirmed that the Forum Icam Entreprises is **a place to connect, a place of opportunity, and a place where career paths take shape**.\n\nOnce again this year, conversations were lively and discoveries plentiful, with some outstanding opportunities on offer for our students: **internships, jobs, apprenticeships and volunteer missions.** Several activities made this edition memorable, including a **sophrology introductory workshop** to help students manage pre-interview stress, a **professional photo booth** for headshots, and a prize draw to win **work experience placements at participating industrial companies**.\nThe highlight of the day was the **Model Mania competition**, co-organised by AvenAo, Prodways Group and Dassault Systèmes. Students were challenged to model a 3D part in record time from a technical drawing using SOLIDWORKS software. Speed, technical skill and creativity were all on show in this hugely popular activity — the winning student completed the challenge in just 3 minutes!\n\nSeveral conferences punctuated the day, organised by **the Icam Alumni association**, the **Délégation Catholique pour la Coopération** (DCC) — a longstanding partner that opens doors for Icam engineers to engage in international volunteering — and **Apec**.\nParticipants gained insight into **trends shaping the engineering sector** and identified the key skills needed to meet future challenges. A dedicated conference focused on **what recruiters are looking for in 2026**, featuring speakers including Cyrille Courtier, an Icam alumnus and HR Director at Moët-Hennessy and Dior.",
+      "query": "forum entreprises ingénieurs Paris 2026",
+      "company": null
+    },
+    {
+      "url": "https://concerts.paris/en/events/serie-le-salon-photo-video-celebre-200-ans-de",
+      "title": "Le Salon Photo & Vidéo célèbre 200 ans de photographie à Paris du 8 au 11 octobre !",
+      "snippet": "On the occasion of the bicentenary of photography, the Salon de la Photo becomes the Salon Photo & Vidéo and takes over the Grande Halle de la Villette, from 8 to 11 October 2026, with an exceptional cultural programme orchestrated by its artistic director Simon Edwards.\nThursday, 8 October 2026 [La Grande Halle de la Villette](/en/hubs/salle-la-grande-halle-de-la-villette) Paris 19e [ Paid entry ](/go/tickets?event=serie-le-salon-photo-video-celebre-200-ans-de)\nFrom 8 to 11 October 2026, Le Salon Photo & Vidéo célèbre 200 ans de photographie à Paris du 8 au 11 octobre ! plays at La Grande Halle de la Villette (75019 Paris).\nChecked on 21 September 2026.\n## Overview\nOn the occasion of the bicentenary of photography, the Salon de la Photo becomes the Salon Photo & Vidéo and takes over the Grande Halle de la Villette, from 8 to 11 October 2026, with an exceptional cultural programme orchestrated by its artistic director Simon Edwards.\nSpanning nearly 1,000 m², the Salon will notably feature the major exhibition \"200 ans derrière l’objectif. Appareils photo : 1826-2026\" (200 Years Behind the Lens. Cameras: 1826-2026), created in partnership with the Nicéphore Niépce Museum.",
+      "query": "salon stage Paris 2026",
+      "company": null
+    },
+    {
+      "url": "https://linkedin.com/in/mathis-pesch",
+      "title": "Mathis Pesch",
+      "snippet": "Hardworker, eager to learn and passionate about tech, I'm a Software Engineering student in one of France top Engineering Schools. Joining Datadog in May 2021 as a Software Engineer!\n## Experience\n### Senior Software Engineer at Datadog\n- **Dates:** October 2024 – Present\n- **Location:** On-site\nBuilding Datadog On-Call to empower our users to use the same tool to observe their tech stack, detect issues quickly, and page the right people at the right time.\n\n### Software Engineer at Datadog\n- **Dates:** March 2020 – July 2020\n- **Location:** Région de New York City, États-Unis\nDatadog is a monitoring service for cloud-scale applications, providing monitoring of servers, databases, tools, and services, through a SaaS-based data analytics platform. ☛ Techs: Python, Go, Kafka, Kubernetes\n\n### Software Engineer at Paris Digital Lab\n- **Dates:** February 2019 – August 2019\n- **Location:** Paris, France\nThe Paris Digital Lab enables students to build innovative technological solutions for real-world problems of top French companies. As I took part in the program, I developed: • authorship attribution machine learning algorithms for a French governmental organization ; • an AR collaborative art platform for a newly-built innovation campus ; • a web-interface to visualize financial data and check it against forecasts, for which I helped build prediction algorithms, for a leader in asset management.\n### IT Manager at Forum CentraleSupélec\n- **Dates:** December 2017 – January 2019\n- **Location:** Région de Paris, France\nI took part in the organization of a career fair with over 200 companies and 3000 students. I helped organize two major events, and several other events on campus. I also managed the IT resources of the organization (30 people) and contributed in developing an ERP software and website (Symfony 3). I built a brand new mobile app using Ionic and Firebase for the career fair. The app enabled >1k students to navigate the event, access a directory of companies and receive important notifications during the event.",
+      "query": "Datadog career fair students Paris",
+      "company": "Datadog"
+    }
+  ],
+  "decisions": [
+    {
+      "url": "https://luma.com/6ed1oko1",
+      "title": "Apache Arrow / Parquet - June 2026 meetup in Paris",
+      "starts_at": "2026-06-18T18:30",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-06-18)",
+      "event_id": 13
+    },
+    {
+      "url": "https://events.datadoghq.com/fr/summits/datadog-summit-paris/terms-and-conditions",
+      "title": "Datadog Summit Paris 2026",
+      "starts_at": "2026-10-14T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-10-14)",
+      "event_id": 14
+    },
+    {
+      "url": "https://www.techshowparis.fr/en/exhibitors/datadog",
+      "title": "Datadog",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 15
+    },
+    {
+      "url": "https://lu.ma/gm93f8iw",
+      "title": "Women TechMakers: Building with AI",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 16
+    },
+    {
+      "url": "https://meetup.com/developer-community-paris/events/312378042",
+      "title": "Data & AI Paris Meetup",
+      "starts_at": "2026-01-22T18:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-01-22)",
+      "event_id": 17
+    },
+    {
+      "url": "https://www.eventbrite.fr/e/business-club-avec-alexis-le-quoc-co-fondateur-et-cto-de-datadog-tickets-1908206520069",
+      "title": "BUSINESS CLUB | Avec Alexis Lê-Quôc, co-fondateur et CTO de Datadog",
+      "starts_at": "2025-11-20T08:30",
+      "verified": false,
+      "notes": "rejected: date in the past (2025-11-20)",
+      "event_id": 18
+    },
+    {
+      "url": "https://ainowsummit.com/terms-of-sales",
+      "title": "AI Now Summit 2026",
+      "starts_at": "2026-05-28T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-05-28)",
+      "event_id": 19
+    },
+    {
+      "url": "https://worldwide-hackathon.mistral.ai",
+      "title": "Mistral AI Worldwide Hackathon 2026",
+      "starts_at": "2026-02-28T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-02-28)",
+      "event_id": 20
+    },
+    {
+      "url": "https://linkedin.com/in/alexandre-drean",
+      "title": "",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 21
+    },
+    {
+      "url": "https://lu.ma/roboticshack",
+      "title": "Mistral AI Robotics Hackathon",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 281
+    },
+    {
+      "url": "https://meetup.com/fr-fr/ai-agent-builders-paris-by-dataiku/events/316864860",
+      "title": "Reliable AI at Scale: Lessons from Dataiku & Mistral AI",
+      "starts_at": "2026-10-27T18:30",
+      "verified": true,
+      "notes": "ok: 2026-10-27, Paris, companies on page: Dataiku, Mistral AI",
+      "event_id": 93
+    },
+    {
+      "url": "https://www.eventbrite.fr/e/jai-deux-minutes-chrono-pour-pitcher-et-resauter-tickets-1984319915283",
+      "title": "J'AI DEUX MINUTES CHRONO POUR PITCHER ET RESAUTER !",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 105
+    },
+    {
+      "url": "https://aws.amazon.com/events/summits/paris/faqs",
+      "title": "AWS Summit Paris 2026",
+      "starts_at": "2026-04-01T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-04-01)",
+      "event_id": 464
+    },
+    {
+      "url": "https://amazonappdev2026.devpost.com/",
+      "title": "Build, Ship, Shape: Amazon Developer Hackathon",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 22
+    },
+    {
+      "url": "https://alumni.dsti.institute/fr/event/amazon-student-immersion-day/2026/06/12/73",
+      "title": "Amazon Student Immersion Day",
+      "starts_at": "2026-06-12T09:30",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-06-12)",
+      "event_id": 23
+    },
+    {
+      "url": "https://lu.ma/kpeo2x4a",
+      "title": "\"Scaling With AI - How Unicorns Stay Ahead\" Pioneers Roundtable at La Maison Motier w/ AWS",
+      "starts_at": "2025-07-04T10:30",
+      "verified": false,
+      "notes": "rejected: date in the past (2025-07-04)",
+      "event_id": 24
+    },
+    {
+      "url": "https://meetup.com/fr-FR/real-time-data-at-scale-paris/events/313488645",
+      "title": "Webinar: GenAI App Dev with TiDB and Amazon Bedrock",
+      "starts_at": "2026-02-25T11:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-02-25)",
+      "event_id": 25
+    },
+    {
+      "url": "https://eventbrite.fr/organizer/pricing",
+      "title": "Tarification et fonctionnalités Eventbrite pour les organisateurs",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 26
+    },
+    {
+      "url": "https://forum-cs.fr/en",
+      "title": "Forum CentraleSupélec 2026 (17th edition)",
+      "starts_at": "2026-11-19T00:00",
+      "verified": true,
+      "notes": "ok: 2026-11-19, Paris, companies on page: none",
+      "event_id": 27
+    },
+    {
+      "url": "https://artistes-francais.com/en",
+      "title": "Le Salon des Artistes Français",
+      "starts_at": "2026-02-13T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-02-13)",
+      "event_id": 28
+    },
+    {
+      "url": "https://itevents.uk/event_details/242",
+      "title": "Datadog Summit Paris",
+      "starts_at": "2026-10-15T09:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-10-15)",
+      "event_id": 30
+    },
+    {
+      "url": "https://careers.datadoghq.com/detail/7158105?gh_jid=7158105",
+      "title": "Product Management Intern | Datadog Careers",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 31
+    },
+    {
+      "url": "https://lu.ma/n84hk0l9",
+      "title": "AWS x Anthropic x Datadog GenAI Hackathon",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 32
+    },
+    {
+      "url": "https://meetup.com/fr-FR/real-time-data-at-scale-paris/events/313600722",
+      "title": "",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 33
+    },
+    {
+      "url": "https://eventbrite.fr/help/en-us/articles/460838/eventbrite-privacy-policy",
+      "title": "Eventbrite Privacy Policy | Eventbrite Help Center",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 34
+    },
+    {
+      "url": "https://ai.engineer/paris/2026/tos",
+      "title": "AI Engineer Paris 2026",
+      "starts_at": "2026-09-23T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-09-23)",
+      "event_id": 35
+    },
+    {
+      "url": "https://luma.com/mistralhack-paris?tk=ADiTrW",
+      "title": "Mistral Worldwide Hackathon - Paris edition",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 36
+    },
+    {
+      "url": "https://mistral.ai/careers/",
+      "title": "Careers",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 37
+    },
+    {
+      "url": "https://lu.ma/openbuild-paris",
+      "title": "Windsurf x Mistral x The AI Collective — Open Build Paris",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 38
+    },
+    {
+      "url": "https://meetup.com/lean-paris/events/313928991",
+      "title": "Paris Lean Inaugural Meetup",
+      "starts_at": "2026-04-24T19:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-04-24)",
+      "event_id": 104
+    },
+    {
+      "url": "https://www.eventbrite.fr/cc/unsw-founders-ai-programs-4811637",
+      "title": "UNSW Founders: AI Programs",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 116
+    },
+    {
+      "url": "https://eventbrite.com/e/amazon-week-2026-the-bioeconomy-and-the-role-of-scientific-networks-tickets-1990162908834",
+      "title": "Amazon Week 2026 - The Bioeconomy and The Role of Scientific Networks",
+      "starts_at": "2026-06-05T09:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-06-05)",
+      "event_id": 483
+    },
+    {
+      "url": "https://aws.amazon.com/telecom/breaking-barriers/",
+      "title": "AWS Breaking Barriers Challenge 2026",
+      "starts_at": "2026-01-13T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-01-13)",
+      "event_id": 484
+    },
+    {
+      "url": "https://aboutamazon.eu/news/community-engagement/inspiring-and-igniting-passion-a-ninth-grade-internship-like-no-other",
+      "title": "Inspiring and igniting passion, a ninth-grade internship like no other",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 40
+    },
+    {
+      "url": "https://lu.ma/nmqgrfws",
+      "title": "Bio x AI Hack - Paris Edition",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: no date on the page",
+      "event_id": 41
+    },
+    {
+      "url": "https://meetup.com/fr-FR/ai-performance-engineering-paris/events/pjvnttyjcjbtb",
+      "title": "Hacking AI Accelerators: Maxxing Tokens & Outcomes with Rob Ferguson @ Fireworks",
+      "starts_at": "2026-06-15T18:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-06-15)",
+      "event_id": 42
+    },
+    {
+      "url": "http://eventbrite.fr",
+      "title": "Découvrez les meilleurs événements locaux et activités à faire",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 43
+    },
+    {
+      "url": "https://en.icam.fr/actualites/icam-en/forum-icam-entreprises-2026-a-celebration-of-networking-and-innovation",
+      "title": "Forum Icam Entreprises 2026: A Celebration of Networking and Innovation",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 44
+    },
+    {
+      "url": "https://concerts.paris/en/events/serie-le-salon-photo-video-celebre-200-ans-de",
+      "title": "Le Salon Photo & Vidéo célèbre 200 ans de photographie à Paris du 8 au 11 octobre !",
+      "starts_at": "2026-10-08T00:00",
+      "verified": false,
+      "notes": "rejected: date in the past (2026-10-08)",
+      "event_id": 87
+    },
+    {
+      "url": "https://linkedin.com/in/mathis-pesch",
+      "title": "",
+      "starts_at": null,
+      "verified": false,
+      "notes": "rejected: not an event page",
+      "event_id": 45
+    }
+  ]
+}

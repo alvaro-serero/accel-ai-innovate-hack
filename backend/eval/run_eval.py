@@ -117,11 +117,13 @@ def cmd_label_events(a):
     agent = [x["url"] for x in raw["decisions"] if x.get("verified")][:10]
     d["events_sets"] = {"raw": raw_top, "agent": agent}
     titles = {c["url"]: c.get("title") for c in raw["candidates"]} | {x["url"]: x.get("title") for x in raw["decisions"]}
+    snippets = {c["url"]: c.get("snippet") or "" for c in raw["candidates"]}
     todo = [u for u in dict.fromkeys(raw_top + agent) if u not in d["events_human"]]
-    random.shuffle(todo)
-    print("Is this a REAL event, UPCOMING (<90 days), REACHABLE (your city) and is the target company REALLY involved? y/n\n")
+    random.shuffle(todo)  # blind: you don't know which list a page comes from
+    print("Open each link if needed. Answer y only if ALL are true: a REAL event, UPCOMING (<90 days),")
+    print("REACHABLE (your city), and one of YOUR target companies is REALLY involved. Otherwise n.\n")
     for i, u in enumerate(todo, 1):
-        print(f"[{i}/{len(todo)}] {titles.get(u) or ''}\n    {u}")
+        print(f"[{i}/{len(todo)}] {titles.get(u) or ''}\n    {u}\n    {textwrap.shorten(snippets.get(u, '').replace(chr(10), ' '), 220)}")
         d["events_human"][u] = ask("    good event? (y/n) ")
         save(a.user, d)
     print("Done.")
@@ -173,6 +175,49 @@ def freshness_and_ghost() -> tuple[dict, dict]:
     return fresh, ghost
 
 
+FUNNEL_STAGES = [  # (stage shown, rejection reason that stops a page at this stage)
+    ("pages found by search", None),
+    ("readable", "extraction failed"),
+    ("is an event page", "not an event page"),
+    ("has a date", "no date on the page"),
+    ("upcoming (not past)", "date in the past"),
+    ("within 90 days", "more than"),
+    ("near the student", "not near"),
+    ("target company named on the page", "not named on the page"),
+    ("not a duplicate", "duplicate"),
+]
+
+
+def events_funnel() -> dict | None:
+    """Automatic evidence, no labels needed: how many raw search results survive each plain-code check."""
+    files = sorted(RESULTS.glob("events_raw_user*.json"))
+    if not files:
+        return None
+    decisions = [x for p in files for x in json.loads(p.read_text(encoding="utf-8"))["decisions"]]
+    remaining, stages, reasons = len(decisions), [], {}
+    for stage, reason in FUNNEL_STAGES:
+        if reason:
+            dropped = sum(1 for x in decisions if not x["verified"] and reason in x["notes"])
+            reasons[reason] = dropped
+            remaining -= dropped
+        stages.append({"stage": stage, "remaining": remaining})
+    kept = sum(1 for x in decisions if x["verified"])
+    return {"runs": len(files), "pages": len(decisions), "kept": kept,
+            "kept_pct": round(100 * kept / len(decisions), 1) if decisions else None,
+            "stages": stages, "rejected_by_reason": reasons,
+            "method": "Every raw Keenable result goes through the same plain-code checks (no LLM judgement); each rejection is stored with its reason."}
+
+
+def cmd_events_funnel(a):
+    f = events_funnel()
+    if not f:
+        raise SystemExit("No events_raw_user*.json yet: run a refresh first.")
+    print(f"{f['runs']} radar runs, {f['pages']} pages from search -> {f['kept']} events shown ({f['kept_pct']}%)\n")
+    for s in f["stages"]:
+        print(f"  {s['remaining']:4}  {s['stage']}")
+    print("\nrejected by reason:", f["rejected_by_reason"])
+
+
 def grounding() -> dict:
     rows = fetch_all("select stats from runs where stats is not null order by id desc limit 50")
     kept = dropped = 0
@@ -215,8 +260,9 @@ def cmd_compile(a):
                  "judge_agreement": mean(agreements),
                  "users": len(users),
                  "method": "Blind human labels (would apply? y/n) on the agent's top 5 vs the keyword-alert baseline's top 5, sources hidden and shuffled."},
-        "events": {"agent_precision": mean(ev_agent), "raw_precision": mean(ev_raw),
-                   "method": "Human labels: real, upcoming within 90 days, reachable, target company really involved."},
+        "events": {"agent_precision": mean(ev_agent), "raw_precision": mean(ev_raw), "labelled_users": len(ev_agent),
+                   "method": "Human labels: real, upcoming within 90 days, reachable, target company really involved.",
+                   "funnel": events_funnel()},
         "grounding": grounding(),
         "freshness": fresh,
         "ghost": ghost,
@@ -226,12 +272,43 @@ def cmd_compile(a):
     (RESULTS / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     write_md(results)
     chart(results)
+    try:
+        funnel_chart(results["events"]["funnel"])
+    except ImportError:
+        pass
     print(json.dumps({k: results[k] for k in ("n_users", "jobs", "events", "grounding")}, indent=2, default=str))
-    print(f"\nWritten: {RESULTS / 'results.json'}, results.md, chart.png")
+    print(f"\nWritten: {RESULTS / 'results.json'}, results.md, chart.png, events_funnel.png")
 
 
 def pct(x):
     return "n/a" if x is None else f"{100 * x:.0f}%"
+
+
+def funnel_md(f: dict | None) -> str:
+    if not f:
+        return "- no radar run yet"
+    lines = [f"- {s['remaining']} {s['stage']}" for s in f["stages"]]
+    return "\n".join(lines) + f"\n\n{f['pages']} raw search results over {f['runs']} runs -> {f['kept']} events shown ({f['kept_pct']}%)."
+
+
+def funnel_chart(f: dict | None):
+    if not f:
+        return
+    import matplotlib.pyplot as plt
+    stages = f["stages"]
+    fig, ax = plt.subplots(figsize=(9, 4.2))
+    vals = [s["remaining"] for s in stages]
+    ax.barh(range(len(stages)), vals, color=["#9ca3af"] + ["#93c5fd"] * (len(stages) - 2) + ["#2563eb"])
+    ax.set_yticks(range(len(stages)), [s["stage"] for s in stages])
+    ax.invert_yaxis()
+    for i, v in enumerate(vals):
+        ax.text(v + max(vals) * 0.01, i, str(v), va="center")
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.set_title(f"Events radar: {f['pages']} search results -> {f['kept']} verified events (plain-code checks)")
+    fig.tight_layout()
+    if RESULTS.name == "sim":
+        fig.text(0.5, 0.45, "SIMULATED DATA", ha="center", va="center", fontsize=40, color="#dc2626", alpha=0.3, rotation=15)
+    fig.savefig(RESULTS / "events_funnel.png", dpi=160)
 
 
 def write_md(r: dict):
@@ -263,7 +340,10 @@ Independent OpenAI judge: agent {pct(j['judge_agent_p5'])} vs baseline {pct(j['j
 {ex}
 
 ## Events radar
-Precision of verified events: {pct(e['agent_precision'])} vs raw search top 10: {pct(e['raw_precision'])}.
+Precision of verified events: {pct(e['agent_precision'])} vs raw search top 10: {pct(e['raw_precision'])} (blind human labels, {e.get('labelled_users', 0)} students).
+
+Filtering funnel (automatic, every check is plain code):
+{funnel_md(e.get('funnel'))}
 
 ## Limits
 Small sample (our team), labels by the users themselves, one day of polling for freshness.
@@ -309,9 +389,11 @@ def main():
     s = sub.add_parser("label"); s.add_argument("--user", type=int, required=True)
     s = sub.add_parser("judge"); s.add_argument("--user", type=int, required=True); s.add_argument("--force", action="store_true")
     s = sub.add_parser("label-events"); s.add_argument("--user", type=int, required=True)
+    sub.add_parser("events-funnel")
     sub.add_parser("compile")
     a = p.parse_args()
-    {"sheet": cmd_sheet, "label": cmd_label, "judge": cmd_judge, "label-events": cmd_label_events, "compile": cmd_compile}[a.cmd](a)
+    {"sheet": cmd_sheet, "label": cmd_label, "judge": cmd_judge, "label-events": cmd_label_events,
+     "events-funnel": cmd_events_funnel, "compile": cmd_compile}[a.cmd](a)
 
 
 if __name__ == "__main__":
