@@ -4,6 +4,9 @@ import { CopyButton } from "./AppShell";
 export function EventCard({ em, compact }: { em: EventMatch; compact?: boolean }) {
   const e = em.event;
   const d = e.starts_at ? new Date(e.starts_at) : null;
+  // Date-only events come back as midnight UTC: show the day without a fake "01:00 AM".
+  const hasTime = d != null && (d.getUTCHours() !== 0 || d.getUTCMinutes() !== 0);
+  const kind = (e.kind ?? "event").replace(/_/g, " ");
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
       <div className="flex gap-4">
@@ -13,9 +16,9 @@ export function EventCard({ em, compact }: { em: EventMatch; compact?: boolean }
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium capitalize text-secondary-foreground">{e.kind}</span>
+            <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium capitalize text-secondary-foreground">{kind}</span>
             <span className="text-xs text-muted-foreground">
-              {d ? `${d.toLocaleString("en", { weekday: "short", hour: "2-digit", minute: "2-digit" })} · ` : ""}{e.city}{e.venue ? ` · ${e.venue}` : ""}
+              {d ? `${d.toLocaleString("en", hasTime ? { weekday: "short", hour: "2-digit", minute: "2-digit" } : { weekday: "short", timeZone: "UTC" })} · ` : ""}{e.city}{e.venue ? ` · ${e.venue}` : ""}
             </span>
           </div>
           <h3 className="mt-1.5 font-medium">{e.title}</h3>

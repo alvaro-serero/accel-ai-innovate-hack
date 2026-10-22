@@ -80,7 +80,7 @@ function BriefPage() {
         <div>
           <p className="text-sm text-muted-foreground">{today}</p>
           <h1 className="mt-1 font-serif text-3xl font-medium tracking-tight">Good morning.</h1>
-          {b ? (
+          {b ? b.run_id != null && (
             <p className="mt-4 max-w-xl text-lg leading-relaxed">
               Since last night: <b className="font-semibold">{b.stats.postings_checked}</b> postings checked,{" "}
               <b className="font-semibold">{b.stats.new_internships}</b> new internships,{" "}
