@@ -1,8 +1,11 @@
 """Agent routes. Owner: Alvaro.
-STUBS: every route returns fixtures until the real logic replaces it. Keep paths and response models.
+STUBS: routes still marked TODO return fixtures until the real logic replaces them. Keep paths and response models.
 """
-from fastapi import APIRouter, File, Form, UploadFile
+import asyncio
 
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+
+from backend.agent import profile
 from backend.app import fixtures
 from backend.app.schemas import (
     Brief,
@@ -31,14 +34,24 @@ async def create_user(
     target_companies: str = Form(""),  # comma-separated
     start_date: str = Form(""),  # YYYY-MM-DD
 ):
-    # TODO(alvaro): pypdf -> text -> profile.py -> insert users + seed user_memory
-    return fixtures.USER
+    pdf_bytes = await cv.read()
+    try:
+        # Sonnet call is blocking: run it in a thread so the server stays responsive.
+        user = await asyncio.to_thread(
+            profile.onboard_user,
+            pdf_bytes, name, email, city, target_roles, target_companies, start_date,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return user
 
 
 @router.get("/users/{user_id}", response_model=User)
 def get_user(user_id: int):
-    # TODO(alvaro): users row + active and superseded memory lines
-    return fixtures.USER
+    user = profile.load_user(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="user not found")
+    return user
 
 
 @router.post("/users/{user_id}/runs", response_model=RunCreated)
