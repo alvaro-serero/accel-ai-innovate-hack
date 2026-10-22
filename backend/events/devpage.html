@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FirstIn · Events sandbox</title>
+<style>
+  :root { --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --soft:#f9fafb; --accent:#2563eb; --ok:#15803d; --okbg:#ecfdf3; --no:#b91c1c; --nobg:#fef2f2; --sim:#92400e; --simbg:#fef3c7; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.5 system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+  .wrap { max-width:1100px; margin:0 auto; padding:24px 16px 60px; display:grid; gap:22px; }
+  header { display:flex; flex-wrap:wrap; gap:10px; align-items:baseline; justify-content:space-between; }
+  h1 { font-size:22px; margin:0; } h2 { font-size:16px; margin:0 0 10px; }
+  .pill { font:600 11px/1 ui-monospace, Consolas, monospace; padding:5px 8px; border-radius:999px; background:var(--soft); border:1px solid var(--line); }
+  .pill.sim { background:var(--simbg); color:var(--sim); border-color:#fde68a; }
+  .pill.ok { background:var(--okbg); color:var(--ok); border-color:#bbf7d0; }
+  .pill.no { background:var(--nobg); color:var(--no); border-color:#fecaca; }
+  .panel { border:1px solid var(--line); border-radius:10px; padding:16px; }
+  form { display:flex; flex-wrap:wrap; gap:10px; align-items:end; }
+  label { display:grid; gap:4px; font-size:12px; color:var(--muted); flex:1 1 200px; }
+  input { font:inherit; padding:9px 10px; border:1px solid var(--line); border-radius:8px; }
+  button { font:600 14px system-ui, Arial; padding:9px 14px; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; }
+  button.ghost { background:#fff; color:var(--fg); border-color:var(--line); }
+  button:disabled { opacity:.5; cursor:wait; }
+  .stats { display:flex; gap:10px; flex-wrap:wrap; }
+  .stat { border:1px solid var(--line); border-radius:8px; padding:10px 14px; min-width:110px; }
+  .stat b { display:block; font-size:22px; }
+  .grid { display:grid; grid-template-columns:1.2fr 1fr; gap:22px; }
+  @media (max-width:860px) { .grid { grid-template-columns:1fr; } }
+  .card { border:1px solid var(--line); border-radius:10px; padding:14px; display:grid; gap:6px; margin-bottom:10px; }
+  .card h3 { margin:0; font-size:15px; }
+  .meta { color:var(--muted); font-size:13px; }
+  .who { background:var(--soft); border-radius:8px; padding:8px 10px; font-size:13px; }
+  .bar { height:8px; background:var(--line); border-radius:4px; overflow:hidden; } .bar i { display:block; height:100%; background:var(--accent); }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; } td { border-bottom:1px solid var(--line); padding:6px 4px; vertical-align:top; }
+  td.url { word-break:break-all; color:var(--muted); }
+  .bars .row { display:grid; grid-template-columns:150px 1fr 50px; gap:8px; align-items:center; margin:6px 0; }
+  .track { height:12px; background:var(--soft); border:1px solid var(--line); border-radius:6px; overflow:hidden; } .track i { display:block; height:100%; background:var(--accent); }
+  .muted { color:var(--muted); } .err { color:var(--no); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>FirstIn · Events radar sandbox</h1>
+    <div class="stats" id="mode"></div>
+  </header>
+
+  <div class="panel">
+    <form id="userform">
+      <label>API base<input id="api" value=""></label>
+      <label>User id<input id="uid" value="1" type="number"></label>
+      <label>City<input id="city" value="Paris"></label>
+      <label>Target companies (comma)<input id="companies" value="Mistral AI, Datadog, Amazon"></label>
+      <label style="flex:0 0 auto;display:flex;gap:6px;align-items:center;color:var(--fg)"><input id="people" type="checkbox"> Verify speakers (people tool)</label>
+      <button type="button" id="save" class="ghost">Save user (sandbox only)</button>
+      <button type="button" id="refresh">Refresh events</button>
+    </form>
+    <p class="muted" id="hint">In the sandbox, users live in memory. Against the real API, the user must exist in Postgres.</p>
+  </div>
+
+  <div class="stats" id="result"></div>
+
+  <div class="grid">
+    <section>
+      <h2>Events for this student <span class="muted">(GET /api/users/{id}/events)</span></h2>
+      <div id="events" class="muted">No events yet. Click "Refresh events".</div>
+    </section>
+    <section>
+      <h2>Every decision <span class="muted">(why kept or rejected)</span></h2>
+      <div id="decisions" class="muted">Runs only on the sandbox server.</div>
+      <h2 style="margin-top:20px">Evidence <span class="muted">(GET /api/eval)</span></h2>
+      <div id="eval" class="bars muted">Loading…</div>
+    </section>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+$("api").value = location.origin.startsWith("http") ? location.origin : "http://localhost:8090";
+const api = p => $("api").value.replace(/\/$/, "") + p;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = v => v == null ? "n/a" : Math.round(v * 100) + "%";
+
+async function getJSON(p, opts) { const r = await fetch(api(p), opts); if (!r.ok) throw new Error(r.status + " " + await r.text()); return r.json(); }
+
+$("people").onchange = async () => {
+  try { await getJSON(`/dev/people?on=${$("people").checked}`, {method: "PUT"}); loadMode(); }
+  catch (e) { $("hint").innerHTML = `<span class="err">People tool switch only exists on the sandbox: ${esc(e.message)}</span>`; }
+};
+
+async function loadMode() {
+  try { const m = await getJSON("/dev/mode"); $("people").checked = m.people_tool === "on";
+    $("mode").innerHTML = Object.entries(m).map(([k, v]) => `<span class="pill ${String(v).includes("SIM") ? "sim" : "ok"}">${k}: ${esc(v)}</span>`).join(" ");
+  } catch { $("mode").innerHTML = `<span class="pill ok">real API</span>`; }
+}
+
+async function loadEvents() {
+  const uid = $("uid").value;
+  try {
+    const list = await getJSON(`/api/users/${uid}/events`);
+    $("events").innerHTML = list.length ? list.map(m => `
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;gap:10px"><h3>${esc(m.event.title)}</h3><span class="pill">${esc(m.event.kind || "event")}</span></div>
+        <div class="meta">${m.event.starts_at ? new Date(m.event.starts_at).toLocaleString("fr-FR", {dateStyle:"medium", timeStyle:"short"}) : "date ?"} · ${esc(m.event.city)} ${m.event.venue ? "· " + esc(m.event.venue) : ""}</div>
+        <div class="meta">${Object.entries(m.event.involvement || {}).map(([c, v]) => `<span class="pill">${esc(c)}: ${esc(v)}</span>`).join(" ")}</div>
+        <div>${esc(m.why)}</div>
+        <div style="display:flex;gap:8px;align-items:center"><b>${m.score}</b><div class="bar" style="flex:1"><i style="width:${m.score}%"></i></div></div>
+        ${(m.who_to_meet || []).map(p => {
+          const v = /^(.*) \(verified: (\S+)\)$/.exec(p.role || "");
+          const role = v ? v[1] : p.role;
+          const badge = v ? ` <span class="pill ok">✓ verified</span> <a href="${esc(v[2])}" target="_blank" rel="noopener">profile</a>` : "";
+          return `<div class="who"><b>${esc(p.name)}</b> ${role ? "· " + esc(role) : ""}${badge}<br>${esc(p.opener)}</div>`;
+        }).join("")}
+        ${!m.event.url ? "" : /\/sim-|sim\.example/.test(m.event.url)
+          ? `<span class="pill sim">SIM link: no real page behind it</span>`
+          : `<a href="${esc(m.event.url)}" target="_blank" rel="noopener">Open event page</a>`}
+      </div>`).join("") : "No verified events.";
+  } catch (e) { $("events").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+}
+
+async function loadDecisions() {
+  try {
+    const d = await getJSON(`/dev/decisions/${$("uid").value}`);
+    $("decisions").innerHTML = d.decisions.length ? `<table>${d.decisions.map(x => `<tr>
+      <td><span class="pill ${x.verified ? "ok" : "no"}">${x.verified ? "kept" : "rejected"}</span></td>
+      <td>${esc(x.title || "")}<div class="url">${esc(x.url)}</div></td><td>${esc(x.notes)}</td></tr>`).join("")}</table>` : "No run yet.";
+  } catch { $("decisions").textContent = "Decisions are only exposed by the sandbox server."; }
+}
+
+async function loadEval() {
+  try {
+    const r = await getJSON("/api/eval");
+    const j = r.jobs || {}, e = r.events || {};
+    const row = (label, v) => `<div class="row"><span>${label}</span><div class="track"><i style="width:${v == null ? 0 : v * 100}%"></i></div><b>${pct(v)}</b></div>`;
+    $("eval").innerHTML = `${r._file ? `<span class="pill ${r._file.startsWith("sim") ? "sim" : "ok"}">${esc(r._file)}</span>` : ""}
+      ${row("Keyword alert P@5", j.baseline_p5)}${row("FirstIn P@5", j.agent_p5)}${row("FirstIn + memory", j.with_memory_p5)}
+      ${row("Raw search events", e.raw_precision)}${row("Verified radar", e.agent_precision)}`;
+  } catch (err) { $("eval").innerHTML = `<span class="err">${esc(err.message)}</span>`; }
+}
+
+$("save").onclick = async () => {
+  try {
+    await getJSON(`/dev/users/${$("uid").value}`, {method: "PUT", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({city: $("city").value, target_companies: $("companies").value.split(",").map(s => s.trim()).filter(Boolean)})});
+    $("hint").textContent = "Saved in the sandbox.";
+  } catch (e) { $("hint").innerHTML = `<span class="err">Only the sandbox server stores users: ${esc(e.message)}</span>`; }
+};
+
+$("refresh").onclick = async () => {
+  const b = $("refresh"); b.disabled = true; b.textContent = "Searching…";
+  const t0 = performance.now();
+  try {
+    const r = await getJSON(`/api/users/${$("uid").value}/events/refresh`, {method: "POST"});
+    const s = ((performance.now() - t0) / 1000).toFixed(1);
+    $("result").innerHTML = ["found", "verified", "kept"].map(k => `<div class="stat">${k}<b>${r[k]}</b></div>`).join("") + `<div class="stat">seconds<b>${s}</b></div>`;
+    await Promise.all([loadEvents(), loadDecisions()]);
+  } catch (e) { $("result").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  b.disabled = false; b.textContent = "Refresh events";
+};
+
+loadMode(); loadEvents(); loadDecisions(); loadEval();
+</script>
+</body>
+</html>
