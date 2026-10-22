@@ -105,7 +105,7 @@ firstin/
   web/  placeholder only: the frontend lives in the Lovable repo (below)      Marc
 ```
 
-**Frontend repo:** Lovable creates and syncs its own GitHub repo (`firstin-web`, link added here once created). Marc adds the team as collaborators. It talks to this backend only through `VITE_API_URL`. If the submission needs a single repo, the Lovable code is copied into `web/` at 15:15.
+**Frontend repo:** Lovable creates and syncs its own GitHub repo: [marcchend/pixel-perfect-replay-2823](https://github.com/marcchend/pixel-perfect-replay-2823) (private; Marc adds the team as collaborators). It talks to this backend only through `VITE_API_URL`. If the submission needs a single repo, the Lovable code is copied into `web/` at 15:15.
 
 **Rules:**
 
