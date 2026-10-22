@@ -59,18 +59,38 @@ function Onboarding() {
       ) : (
         <div className="space-y-6">
           <Group title="Skills">
-            <div className="flex flex-wrap gap-1.5">{(user.profile?.skills ?? []).map((s) => <span key={s} className="rounded-full bg-accent px-2.5 py-0.5 text-sm text-accent-foreground">{s}</span>)}</div>
+            <div className="flex flex-wrap gap-1.5">{asList(user.profile?.skills).map((s, i) => <span key={i} className="rounded-full bg-accent px-2.5 py-0.5 text-sm text-accent-foreground">{asText(s)}</span>)}</div>
           </Group>
           <Group title="Projects">
-            <ul className="space-y-2">{(user.profile?.projects ?? []).map((p) => (
-              <li key={p.name} className="text-sm"><span className="font-medium">{p.name}</span> <span className="text-muted-foreground">— {p.one_line} ({p.stack.join(", ")})</span></li>
-            ))}</ul>
+            <ul className="space-y-2">{asList(user.profile?.projects).map((raw, i) => {
+              if (typeof raw !== "object" || raw === null) return <li key={i} className="text-sm">{asText(raw)}</li>;
+              const p = raw as Item;
+              const stack = asList(p.stack).map(asText).join(", ");
+              return (
+                <li key={i} className="text-sm"><span className="font-medium">{asText(p.name)}</span>
+                  {p.one_line != null && <span className="text-muted-foreground"> — {asText(p.one_line)}</span>}
+                  {stack && <span className="text-muted-foreground"> ({stack})</span>}
+                </li>
+              );
+            })}</ul>
           </Group>
+          {asList(user.profile?.experiences).length > 0 && (
+            <Group title="Experience">
+              <ul className="space-y-2">{asList(user.profile?.experiences).map((raw, i) => {
+                const x = (typeof raw === "object" && raw !== null ? raw : {}) as Item;
+                return (
+                  <li key={i} className="text-sm">
+                    {typeof raw === "object" && raw !== null
+                      ? <><span className="font-medium">{asText(x.role)}</span>{x.org != null && <>, {asText(x.org)}</>}{x.one_line != null && <span className="text-muted-foreground"> — {asText(x.one_line)}</span>}</>
+                      : asText(raw)}
+                  </li>
+                );
+              })}</ul>
+            </Group>
+          )}
           <Group title="Education">
-            <ul className="space-y-1 text-sm">{(user.profile?.education ?? []).map((ed, i) => (
-              <li key={i}>{typeof ed === "string" ? ed : Object.values(ed as Record<string, unknown>).filter(Boolean).join(" · ")}</li>
-            ))}</ul>
-            {!(user.profile?.education ?? []).length && <p className="text-sm text-muted-foreground">Nothing found.</p>}
+            <ul className="space-y-1 text-sm">{asList(user.profile?.education).map((ed, i) => <li key={i}>{asText(ed)}</li>)}</ul>
+            {!asList(user.profile?.education).length && <p className="text-sm text-muted-foreground">Nothing found.</p>}
           </Group>
           <Button asChild size="lg"><Link to="/u/$userId" params={{ userId: String(user.id) }}>Go to my brief</Link></Button>
         </div>
@@ -78,6 +98,14 @@ function Onboarding() {
     </AppShell>
   );
 }
+
+// The CV profile is LLM output: a field can be a string, a list, an object or missing.
+const asList = (v: unknown): unknown[] => (Array.isArray(v) ? v : v == null || v === "" ? [] : [v]);
+const asText = (v: unknown): string =>
+  typeof v === "string" ? v
+  : v && typeof v === "object" ? Object.values(v as Record<string, unknown>).filter((x) => typeof x === "string" || typeof x === "number").join(" · ")
+  : String(v ?? "");
+type Item = { name?: unknown; org?: unknown; role?: unknown; one_line?: unknown; stack?: unknown };
 
 function Group({ title, children }: { title: string; children: React.ReactNode }) {
   return (

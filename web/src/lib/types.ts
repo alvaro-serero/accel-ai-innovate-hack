@@ -28,7 +28,8 @@ export interface Project { name: string; stack: string[]; one_line: string }
 export interface User {
   id: number; name: string; email: string; city: string; target_roles: string[]; target_companies: string[];
   start_date: string | null;
-  profile: { skills?: string[]; projects?: Project[]; education?: unknown[] } | null;
+  // Shape comes from an LLM (backend/agent/profile.py): render defensively, fields may be strings or lists.
+  profile: { skills?: unknown; projects?: unknown; education?: unknown; experiences?: unknown; graduation_year?: number } | null;
   memory?: MemoryLine[];
 }
 export interface TraceStep { step: string; count_in: number; count_out: number; seconds: number; note: string | null }
