@@ -11,6 +11,7 @@ Labels live in backend/eval/labels/user<id>.json (sources hidden while labelling
 """
 import argparse
 import json
+import os
 import random
 import statistics
 import textwrap
@@ -21,10 +22,10 @@ from backend.app.db import fetch_all, fetch_one
 from backend.eval.baseline import agent_picks, keyword_alert, latest_run_id
 
 HERE = Path(__file__).resolve().parent
-LABELS = HERE / "labels"
-RESULTS = HERE / "results"
-LABELS.mkdir(exist_ok=True)
-RESULTS.mkdir(exist_ok=True)
+LABELS = Path(os.getenv("EVAL_LABELS_DIR") or HERE / "labels")    # simulate.py points these to sim/ folders
+RESULTS = Path(os.getenv("EVAL_RESULTS_DIR") or HERE / "results")
+LABELS.mkdir(parents=True, exist_ok=True)
+RESULTS.mkdir(parents=True, exist_ok=True)
 
 
 def load(user_id: int) -> dict:
@@ -292,6 +293,8 @@ def chart(r: dict):
         ax.spines[["top", "right"]].set_visible(False)
     fig.suptitle(f"FirstIn evidence ({r['n_users']} students, blind labels)")
     fig.tight_layout()
+    if RESULTS.name == "sim":  # never let a simulated chart reach the pitch
+        fig.text(0.5, 0.45, "SIMULATED DATA", ha="center", va="center", fontsize=44, color="#dc2626", alpha=0.3, rotation=15)
     fig.savefig(RESULTS / "chart.png", dpi=160)
 
 
