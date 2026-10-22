@@ -13,7 +13,7 @@ export interface EventOut {
   id: number; title: string; url: string; kind: string; starts_at: string | null; city: string;
   venue: string | null; companies: string[]; involvement: Record<string, string>;
 }
-export interface Contact { name: string; role: string; company: string; opener: string }
+export interface Contact { name: string; role: string | null; company: string | null; opener: string | null }
 export interface EventMatch { id: number; score: number; why: string; event: EventOut; who_to_meet: Contact[] }
 export interface Brief {
   run_id: number | null; generated_at: string | null;
