@@ -416,6 +416,7 @@ You own the app shell, the deploy and the whole frontend. The UI is built on moc
      - *Last user id is remembered (localStorage) so Data layer, Evidence and Onboarding link back to the right student.*
      - *Null-safe dates (missing `generated_at` / `starts_at`) and no "NaN%" on an empty grounding counter.*
    - *Checked: typecheck, tests and production build pass; all pages load against the local backend; CORS and `PATCH /api/matches/{id}` OK. Visual check in the Lovable preview still to do.*
+   - *Published (public): https://pixel-perfect-replay-2823.lovable.app, pointing at the Aiven API. Republish after each frontend change (Publish → Publish changes); it is not automatic.*
    - *Every API call falls back to mock data when it fails; a "demo data" pill shows in the header. Watch it during the video.*
 4. **Design:** calm and clean, one accent colour, no dashboards-for-the-sake-of-it. The brief should read like a short morning email.
 5. **14:00 to 14:45:** switch from mocks to the real API, fix what breaks after the merge.
