@@ -60,9 +60,11 @@ async def who_to_meet(ev: dict, target_companies: list[str], profile: dict) -> l
     for p in people:
         try:
             r = await aclaude_json(OPENER_SYSTEM, f"PERSON: {json.dumps(p, ensure_ascii=False)}\nEVENT: {ev.get('title')}\n"
-                                                  f"STUDENT PROFILE: {json.dumps(profile, ensure_ascii=False)[:3000]}", model=HAIKU, max_tokens=300, effort="low")
+                                                  f"STUDENT PROFILE: {json.dumps(profile, ensure_ascii=False)[:3000]}",
+                                   model=HAIKU, max_tokens=1000, effort="low")  # 300 cut the JSON mid-sentence on rich profiles
             opener = r.get("opener", "") if isinstance(r, dict) else ""
-        except Exception:
+        except Exception as e:
+            print(f"[events.opener] {p.get('name')}: {e}")
             opener = ""
         out.append({"name": p["name"], "role": p.get("role"), "company": p.get("company"), "opener": opener})
     # as in the plan: only people named on the page; no named speaker means no "who to meet"
