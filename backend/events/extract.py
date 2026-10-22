@@ -68,7 +68,7 @@ async def extract_event(client: httpx.AsyncClient, cand: dict, sem: asyncio.Sema
             text = f"{cand.get('title', '')}\n{cand.get('snippet', '')}"
         user = f"URL: {cand['url']}\nSEARCH TITLE: {cand.get('title', '')}\nSEARCH SNIPPET: {cand.get('snippet', '')}\n\nPAGE TEXT:\n{text}"
         try:
-            data = await aclaude_json(SYSTEM, user, model=HAIKU, max_tokens=1500)
+            data = await aclaude_json(SYSTEM, user, model=HAIKU, max_tokens=1500, effort="low")
         except Exception as e:
             print(f"[events.extract] {cand['url']}: {e}")
             return None

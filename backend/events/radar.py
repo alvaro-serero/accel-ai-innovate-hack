@@ -60,7 +60,7 @@ async def who_to_meet(ev: dict, target_companies: list[str], profile: dict) -> l
     for p in people:
         try:
             r = await aclaude_json(OPENER_SYSTEM, f"PERSON: {json.dumps(p, ensure_ascii=False)}\nEVENT: {ev.get('title')}\n"
-                                                  f"STUDENT PROFILE: {json.dumps(profile, ensure_ascii=False)[:3000]}", model=HAIKU, max_tokens=300)
+                                                  f"STUDENT PROFILE: {json.dumps(profile, ensure_ascii=False)[:3000]}", model=HAIKU, max_tokens=300, effort="low")
             opener = r.get("opener", "") if isinstance(r, dict) else ""
         except Exception:
             opener = ""

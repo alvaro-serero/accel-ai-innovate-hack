@@ -110,7 +110,7 @@ async def sim_fetch(client, url: str) -> str:
     return f"SIM PAGE {url}. {comp} event. Students welcome."
 
 
-async def sim_llm(system: str, user: str, model=None, max_tokens=1000):
+async def sim_llm(system: str, user: str, model=None, max_tokens=1000, effort=None):
     if "opener" in system:
         return {"opener": "SIM: your talk on evaluation connects to my document extraction project; how do you test your agents?"}
     url = user.split("\n")[0].replace("URL: ", "")
@@ -139,26 +139,6 @@ if not REAL_SEARCH:  # simulated URLs have no real page behind them
 if not REAL_LLM:
     X.aclaude_json = sim_llm
     R.aclaude_json = sim_llm
-else:
-    # Sandbox-only workaround until llm.py reads the text block instead of content[0]
-    # (with thinking on by default, content[0] is a ThinkingBlock). Same behaviour otherwise.
-    import json as _json
-    from backend.app import llm as L
-
-    async def text_safe_aclaude_json(system, user, model=L.HAIKU, max_tokens=1000):
-        for attempt in range(2):
-            resp = await L._aclient().messages.create(model=model, max_tokens=max_tokens, system=system + L.JSON_RULE,
-                                                      messages=[{"role": "user", "content": user}])
-            L._track(model, resp.usage.input_tokens, resp.usage.output_tokens)
-            text = "".join(b.text for b in resp.content if b.type == "text")
-            try:
-                return L.extract_json(text)
-            except (ValueError, _json.JSONDecodeError):
-                if attempt == 1:
-                    raise
-
-    X.aclaude_json = text_safe_aclaude_json
-    R.aclaude_json = text_safe_aclaude_json
 
 
 # ------------------------------------------------------------------ app
