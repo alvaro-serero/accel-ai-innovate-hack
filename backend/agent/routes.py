@@ -5,7 +5,7 @@ import asyncio
 
 from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, UploadFile
 
-from backend.agent import profile, run
+from backend.agent import memory, profile, run
 from backend.app import fixtures
 from backend.app.schemas import (
     Brief,
@@ -78,8 +78,9 @@ def get_brief(user_id: int):
 
 @router.post("/feedback", response_model=FeedbackResult)
 def post_feedback(body: FeedbackIn):
-    # TODO(alvaro): insert feedback, run memory.py curator, set match status
-    return FeedbackResult(memory_added=[fixtures.USER.memory[2]], memory_superseded=[2])
+    if profile.load_user(body.user_id) is None:
+        raise HTTPException(status_code=404, detail="user not found")
+    return memory.handle_feedback(body.user_id, body.target_type, body.target_id, body.verdict, body.reason)
 
 
 @router.post("/jobs/{job_id}/kit", response_model=Kit)
