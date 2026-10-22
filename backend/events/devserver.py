@@ -114,6 +114,8 @@ async def sim_llm(system: str, user: str, model=None, max_tokens=1000):
     if "opener" in system:
         return {"opener": "SIM: your talk on evaluation connects to my document extraction project; how do you test your agents?"}
     url = user.split("\n")[0].replace("URL: ", "")
+    if "/sim-" not in url:  # never invent details for a real page: without a Claude key, real pages are not extracted
+        return {"is_event": False}
     comp = next((c for c in DB.users[1]["target_companies"] if c.lower().replace(" ", "-") in url), "Unknown")
     if "builders" in url:
         when = (NOW + timedelta(days=random.randint(5, 40))).strftime("%Y-%m-%dT18:30")
