@@ -4,6 +4,7 @@
 
     data = claude_json(system="You rank internships...", user="...", model=HAIKU)
     data = await aclaude_json(...)          # same, async (for asyncio.gather batches)
+    data = await aclaude_json(..., model=HAIKU, effort="low")  # cheap bulk calls
     data = openai_json(system=..., user=...) # Taleb's independent judge
 
 Every function asks for JSON and returns a parsed dict or list (one retry on bad JSON).
@@ -71,33 +72,50 @@ def _aclient() -> AsyncAnthropic:
     return _aanthropic
 
 
-def claude_json(system: str, user: str, model: str = SONNET, max_tokens: int = 2000):
+def _text(resp) -> str:
+    # Claude 5 models may put a thinking block before the answer: read only the text blocks.
+    text = "".join(b.text for b in resp.content if b.type == "text")
+    if not text:
+        raise ValueError(f"no text block (stop_reason={resp.stop_reason})")  # caught by the retry
+    return text
+
+
+def _effort(effort: str | None) -> dict:
+    """effort='low' makes bulk calls cheaper and faster (less thinking). None = model default."""
+    return {"output_config": {"effort": effort}} if effort else {}
+
+
+def claude_json(system: str, user: str, model: str = SONNET, max_tokens: int = 2000, effort: str | None = None):
     for attempt in range(2):
         resp = _client().messages.create(
             model=model,
             max_tokens=max_tokens,
             system=system + JSON_RULE,
             messages=[{"role": "user", "content": user}],
+            **_effort(effort),
         )
         _track(model, resp.usage.input_tokens, resp.usage.output_tokens)
         try:
-            return extract_json(resp.content[0].text)
+            return extract_json(_text(resp))
         except (ValueError, json.JSONDecodeError):
             if attempt == 1:
                 raise
 
 
-async def aclaude_json(system: str, user: str, model: str = HAIKU, max_tokens: int = 1000):
+async def aclaude_json(
+    system: str, user: str, model: str = HAIKU, max_tokens: int = 1000, effort: str | None = None
+):
     for attempt in range(2):
         resp = await _aclient().messages.create(
             model=model,
             max_tokens=max_tokens,
             system=system + JSON_RULE,
             messages=[{"role": "user", "content": user}],
+            **_effort(effort),
         )
         _track(model, resp.usage.input_tokens, resp.usage.output_tokens)
         try:
-            return extract_json(resp.content[0].text)
+            return extract_json(_text(resp))
         except (ValueError, json.JSONDecodeError):
             if attempt == 1:
                 raise
