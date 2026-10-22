@@ -208,6 +208,72 @@ def events_funnel() -> dict | None:
             "method": "Every raw Keenable result goes through the same plain-code checks (no LLM judgement); each rejection is stored with its reason."}
 
 
+EUROPE_HINTS = ("france", "paris", "europe", "emea", "eu ")
+
+
+def _job_flags(job: dict, user_city: str) -> dict:
+    """Objective problems a student would hit with a posting, read from the database (no LLM, no labels)."""
+    from backend.events.verify import same_region
+    now = datetime.now(timezone.utc)
+    published = job.get("published_at") or job.get("first_seen_at")
+    age_days = (now - published).days if published else None
+    loc = f"{job.get('city') or ''} {job.get('location') or ''}".lower()
+    near = same_region(job.get("city") or job.get("location"), user_city)
+    remote_ok = bool(job.get("remote")) and any(h in loc for h in EUROPE_HINTS)
+    return {"ghost": (job.get("ghost_score") or 0) >= 0.6,
+            "stale_60d": age_days is not None and age_days > 60,
+            "off_location": not (near or remote_ok),
+            "closed": job.get("closed_at") is not None,
+            "age_days": age_days}
+
+
+def jobs_auto() -> dict | None:
+    """Agent top 5 vs keyword-alert top 5 on objective flags, for every user with a labelling sheet."""
+    users = sorted(int(p.stem.replace("user", "")) for p in LABELS.glob("user*.json"))
+    if not users:
+        return None
+    totals = {}
+    per_user = []
+    for u in users:
+        d = load(u)
+        city = (fetch_one("select city from users where id = %s", (u,)) or {}).get("city") or "Paris"
+        row = {"user": u}
+        for method, ids in d["sets"].items():
+            if not ids:
+                continue
+            jobs = fetch_all("""select j.id, j.title, j.city, j.location, j.remote, j.ghost_score, j.published_at,
+                                       j.first_seen_at, j.closed_at from jobs j where j.id = any(%s)""", (list(ids),))
+            flags = [_job_flags(j, city) for j in jobs]
+            t = totals.setdefault(method, {"postings": 0, "ghost": 0, "stale_60d": 0, "off_location": 0, "closed": 0, "ages": []})
+            t["postings"] += len(flags)
+            for k in ("ghost", "stale_60d", "off_location", "closed"):
+                t[k] += sum(f[k] for f in flags)
+            t["ages"] += [f["age_days"] for f in flags if f["age_days"] is not None]
+            row[method] = {k: sum(f[k] for f in flags) for k in ("ghost", "stale_60d", "off_location", "closed")}
+        per_user.append(row)
+    out = {}
+    for method, t in totals.items():
+        n = max(1, t["postings"])
+        out[method] = {"postings": t["postings"],
+                       "ghost_pct": round(100 * t["ghost"] / n, 1), "stale_60d_pct": round(100 * t["stale_60d"] / n, 1),
+                       "off_location_pct": round(100 * t["off_location"] / n, 1), "closed_pct": round(100 * t["closed"] / n, 1),
+                       "median_age_days": statistics.median(t["ages"]) if t["ages"] else None}
+    return {"users": len(users), "by_method": out, "per_user": per_user,
+            "method": "Same users, top 5 of each method, flags read from the jobs table: ghost score >= 0.6, published more "
+                      "than 60 days ago, not in the student's region nor remote open to France/Europe, closed since."}
+
+
+def cmd_jobs_auto(a):
+    r = jobs_auto()
+    if not r:
+        raise SystemExit("No labelling sheet yet: run `sheet --user N` first.")
+    print(f"{r['users']} students, top 5 of each method\n")
+    print(f"{'method':14} {'postings':>8} {'ghost':>7} {'>60 days':>9} {'off-location':>13} {'closed':>7} {'median age':>11}")
+    for m, s in r["by_method"].items():
+        print(f"{m:14} {s['postings']:>8} {s['ghost_pct']:>6}% {s['stale_60d_pct']:>8}% {s['off_location_pct']:>12}% "
+              f"{s['closed_pct']:>6}% {str(s['median_age_days']) + ' d':>11}")
+
+
 def cmd_events_funnel(a):
     f = events_funnel()
     if not f:
@@ -252,7 +318,8 @@ def cmd_compile(a):
     results = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "n_users": len(users),
-        "jobs": {"baseline_p5": mean(r.get("baseline_p5") for r in per_user),
+        "jobs": {"auto": jobs_auto(),
+                 "baseline_p5": mean(r.get("baseline_p5") for r in per_user),
                  "agent_p5": mean(r.get("agent_p5") for r in per_user),
                  "with_memory_p5": mean(r.get("agent_memory_p5") for r in per_user),
                  "judge_agent_p5": mean(r.get("judge_agent_p5") for r in per_user),
@@ -390,10 +457,11 @@ def main():
     s = sub.add_parser("judge"); s.add_argument("--user", type=int, required=True); s.add_argument("--force", action="store_true")
     s = sub.add_parser("label-events"); s.add_argument("--user", type=int, required=True)
     sub.add_parser("events-funnel")
+    sub.add_parser("jobs-auto")
     sub.add_parser("compile")
     a = p.parse_args()
     {"sheet": cmd_sheet, "label": cmd_label, "judge": cmd_judge, "label-events": cmd_label_events,
-     "events-funnel": cmd_events_funnel, "compile": cmd_compile}[a.cmd](a)
+     "events-funnel": cmd_events_funnel, "jobs-auto": cmd_jobs_auto, "compile": cmd_compile}[a.cmd](a)
 
 
 if __name__ == "__main__":
