@@ -10,7 +10,7 @@ import asyncio
 import json
 from pathlib import Path
 
-from backend.agent import profile, qualify, research
+from backend.agent import profile, qualify, research, run
 
 
 def cmd_onboard(args) -> None:
@@ -33,7 +33,7 @@ def cmd_onboard(args) -> None:
 def print_trace(trace: list[dict]) -> None:
     print("trace:")
     for s in trace:
-        print(f"  {s['step']:<24} {s['count_in']!s:>5} -> {s['count_out']!s:<5} {s['seconds']:>6}s  {s.get('note') or ''}")
+        print(f"  {s['step']:<28} {s['count_in']!s:>5} -> {s['count_out']!s:<5} {s['seconds']:>6}s  {s.get('note') or ''}")
 
 
 def print_picks(picks: list[dict]) -> None:
@@ -74,6 +74,33 @@ def cmd_research(args) -> None:
     print("brief:", brief.model_dump_json(indent=2) if brief else None)
 
 
+def print_brief(brief) -> None:
+    for m in brief.matches:
+        print(f"\n#{m.rank}  {m.fit_score}/100  {m.job.title} @ {m.job.company}  (ghost {m.job.ghost_score:.1f})")
+        print(f"    {m.job.url or ''}")
+        for r in m.reasons:
+            print(f"    + {r.claim}  [{r.source}: \"{r.evidence}\"]")
+        for g in m.gaps:
+            print(f"    - gap: {g}")
+        if m.company_brief:
+            print(f"    i {m.company_brief.summary}  {m.company_brief.sources}")
+    print(f"\n{len(brief.events)} events")
+
+
+def cmd_run(args) -> None:
+    if profile.load_user(args.user) is None:
+        raise SystemExit(f"no user {args.user}")
+    run_id = run.create_run(args.user, args.kind)
+    print(f"run {run_id} started")
+    asyncio.run(run.execute_run(run_id, args.user))
+    result = run.load_run(run_id)
+    print(f"status: {result['status']}")
+    print_trace(result["trace"])
+    print("stats:", json.dumps(result["stats"], indent=2))
+    if result["status"] == "done":
+        print_brief(run.load_brief(args.user))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="backend.agent.cli")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -95,6 +122,11 @@ def main() -> None:
     p = sub.add_parser("research", help="Keenable search + Haiku brief for one company")
     p.add_argument("--company", required=True)
     p.set_defaults(func=cmd_research)
+
+    p = sub.add_parser("run", help="full run: rank, research, save matches, events, n8n")
+    p.add_argument("--user", type=int, required=True)
+    p.add_argument("--kind", default="manual", choices=["nightly", "manual", "eval"])
+    p.set_defaults(func=cmd_run)
 
     args = parser.parse_args()
     args.func(args)

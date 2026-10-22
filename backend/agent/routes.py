@@ -3,9 +3,9 @@ STUBS: routes still marked TODO return fixtures until the real logic replaces th
 """
 import asyncio
 
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, UploadFile
 
-from backend.agent import profile
+from backend.agent import profile, run
 from backend.app import fixtures
 from backend.app.schemas import (
     Brief,
@@ -55,20 +55,25 @@ def get_user(user_id: int):
 
 
 @router.post("/users/{user_id}/runs", response_model=RunCreated)
-def start_run(user_id: int, body: RunCreate | None = None):
-    # TODO(alvaro): insert runs row, launch run.py in a BackgroundTask, return its id
-    return RunCreated(run_id=fixtures.RUN.id)
+def start_run(user_id: int, background_tasks: BackgroundTasks, body: RunCreate | None = None):
+    if profile.load_user(user_id) is None:
+        raise HTTPException(status_code=404, detail="user not found")
+    run_id = run.create_run(user_id, (body or RunCreate()).kind)
+    background_tasks.add_task(run.execute_run, run_id, user_id)  # starts after the response is sent
+    return RunCreated(run_id=run_id)
 
 
 @router.get("/runs/{run_id}", response_model=RunOut)
 def get_run(run_id: int):
-    return fixtures.RUN
+    found = run.load_run(run_id)
+    if found is None:
+        raise HTTPException(status_code=404, detail="run not found")
+    return found
 
 
 @router.get("/users/{user_id}/brief", response_model=Brief)
 def get_brief(user_id: int):
-    # TODO(alvaro): latest finished run -> matches + event_matches + stats
-    return fixtures.BRIEF
+    return run.load_brief(user_id)
 
 
 @router.post("/feedback", response_model=FeedbackResult)
